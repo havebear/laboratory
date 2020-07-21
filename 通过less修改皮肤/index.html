@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>修改皮肤</title>
+    <link rel="stylesheet/less" href="./index.less" />
+  </head>
+  <body>
+    <div class="action-btn" onClick="changeTheme()">修改主题</div>
+    <div class="container">DEMO</div>
+
+    <script>
+      var less = { env: "development" };
+    </script>
+    <script src="./less.min.js"></script>
+    <script>less.watch()</script>
+    <script>
+      function changeTheme() {
+        console.log('test')
+        less.modifyVars({
+          "@background": "#333",
+          "@color": "#FFF"
+        });
+      }
+    </script>
+  </body>
+</html>
