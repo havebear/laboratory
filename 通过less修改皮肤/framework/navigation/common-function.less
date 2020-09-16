@@ -1,0 +1,50 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-21 15:35:49
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-08-21 16:10:52
+ * @Description:  常用功能
+ */
+
+.cf {
+  &-item {
+    width: 25%;
+    height: 100% / 3;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    cursor: pointer;
+    &-icon {
+      position: relative;
+      box-sizing: border-box;
+      width: 60%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 0;
+      border-radius: 10px;
+      line-height: 40px;
+      .child-vertical-align();
+      &:before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+      }
+      img {
+        position: absolute;
+        width: 60%;
+        top: 25%;
+        left: 20%;
+      }
+    }
+    &-title {
+      display: block;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+      font-size: @font_size_sm;
+      color: @font_color_2;
+    }
+  }
+}

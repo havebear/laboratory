@@ -1,0 +1,97 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-31 15:39:22
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-04 16:05:12
+ * @Description:  覆盖iview样式
+ */
+
+.ivu-menu-vertical.ivu-menu-light:after {
+  background-color: transparent;
+}
+.home-header .ivu-select-dropdown {
+  z-index: 901;
+}
+.home-main .ivu-tabs {
+  width: 100%;
+  height: 100%;
+  color: @home_tab_color;
+}
+.home-main .ivu-tabs .ivu-tabs-content {
+  // width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding-top: 71px;
+  will-change: transform;
+  transition: transform 0.3s ease-in-out;
+}
+.home-main .ivu-tabs-bar {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  left: 0;
+  margin-bottom: 0;
+  padding: 16px 20px;
+  border: none;
+}
+.home-main .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab {
+  height: 32px;
+  padding-bottom: 5px;
+  background-color: @panel_bg;
+  border-radius: 3px;
+  border: none;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+}
+.home-main .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-nav-container {
+  height: 40px;
+  line-height: 24px;
+}
+.home-main .ivu-tabs-nav-scroll {
+  padding: 4px 0;
+}
+.home-main .ivu-tabs-nav-prev,
+.home-main .ivu-tabs-nav-next {
+  line-height: 40px;
+}
+.home-slide .ivu-menu-light {
+  background-color: @home_slide_bg;
+}
+.home-slide .ivu-menu {
+  color: @home_slide_color;
+}
+.home-slide .ant-menu-inline.ant-menu-sub {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.home-slide .ivu-menu-vertical .ivu-menu-item:hover,
+.ivu-menu-vertical .ivu-menu-submenu-title:hover {
+  background-color: @home_slide_hover_bg;
+  color: @home_slide_color;
+}
+.home-slide
+  .ivu-menu-light.ivu-menu-vertical
+  .ivu-menu-item-active:not(.ivu-menu-submenu) {
+  background-color: @home_slide_active_bg;
+  color: @home_slide_active_color;
+}
+.home-slide .ivu-menu-vertical .ivu-menu-submenu-title-icon {
+  transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+}
+.home-slide .ivu-menu-opened > * > .ivu-menu-submenu-title-icon {
+  transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+}
+
+.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after {
+  width: 0;
+  // width: 4px;
+  // background-color: @home_slide_active_bg;
+}

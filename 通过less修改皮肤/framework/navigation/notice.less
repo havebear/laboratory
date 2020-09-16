@@ -1,0 +1,88 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-24 16:29:54
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-16 13:48:42
+ * @Description:  通知
+ */
+
+ .notice {
+  &-item {
+    height: 100% / 3;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color .2s;
+    &:hover {
+      background-color: @navigation_list_hover_bg;
+      .notice-title, .notice-description {
+        color: #ffffff;
+      }
+      .notice-day, .notice-yearmonth {
+        // color: @font_color_info;
+        color: #ffffff;;
+      }
+    }
+  }
+  &-content {
+    width: 0;
+    flex: 1;
+    padding-right: 20px;
+  }
+  &-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    text-align: center;
+  }
+  &-day {
+    font-size: @font_size_md * 2;
+    color: @font_color_1;
+  }
+  &-yearmonth {
+    font-size: @font_size_sm;
+    color: @font_color_2;
+  }
+  &-title {
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: @font_size_lg;
+    color: @font_color_1;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  &-description {
+    font-size: @font_size_sm;
+    color: @font_color_2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  &-tab-item {
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+    color: @font_color_2;
+    cursor: pointer;
+    &.active {
+      color: @font_color_info;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 3em;
+        height: 2px;
+        margin-left: 50%;
+        bottom: -16px;
+        left: -1.5em;
+        background-color: @font_color_info;
+      }
+    }
+  }
+}

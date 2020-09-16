@@ -1,0 +1,38 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-31 15:27:28
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-16 13:55:32
+ * @Description:  公共样式
+ */
+
+@import "../variable.less";
+@import "../variable2.less";
+
+body {
+  background: transparent !important;
+}
+
+// 通用下边距
+.common_margin_bottom {
+  margin-bottom: @padding;
+}
+
+//通用展示数据页面
+.common_data_page {
+  height: 100%;
+  overflow: auto;
+  padding: 0 @padding @padding @padding;
+  background-color: @page_bg;
+}
+
+//通用面板
+.common_panel {
+  // padding: 15px;
+  background-color: @panel_bg;
+  overflow: hidden;
+  border-radius: @radius;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+@import "../components/index.less";

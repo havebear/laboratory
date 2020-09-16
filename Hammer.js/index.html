@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hammer.js</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hammer.js</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      #point {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        bottom: 0;
+        left: 200px;
+        background-color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="point"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+    <script>
+      window.onload = () => {
+        const app = document.querySelector('#app')
+        const point = document.querySelector("#point");
+        const hammertime = new Hammer(point);
+        const C_WIDTH = app.offsetWidth
+        const C_HEIGHT = app.offsetHeight
+        const WIDTH = point.clientWidth;
+        const HEIGHT = point.clientHeight;
+
+        hammertime.on("pan", (e) => {
+          const { deltaX, deltaY } = e;
+          const _top = point.offsetTop;
+          const _left = point.offsetLeft;
+          let _x = _left + (deltaX - _left);
+          let _y = _top + (deltaY - _top);
+
+          if (_x <= 0) _x = 0
+          if (_x >= C_WIDTH - WIDTH) _x = C_WIDTH - WIDTH
+          if (_y <= 0) _y = 0
+          if (_y >= C_HEIGHT - HEIGHT) _y = C_HEIGHT - HEIGHT
+
+          point.style.left = _x + "px";
+          point.style.top = _y + "px";
+        });
+
+        hammertime.on("panend", (e) => {
+          console.log(e, "结束");
+        });
+      };
+    </script>
+  </body>
 </html>

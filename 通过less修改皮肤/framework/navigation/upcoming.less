@@ -1,0 +1,49 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-24 16:29:54
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-08-28 11:00:19
+ * @Description:  待办
+ */
+
+.upcoming {
+  &-item {
+    height: 25%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color .2s;
+    &:hover {
+      background-color: @navigation_list_hover_bg;
+      .upcoming-title, .upcoming-time, .upcoming-arrow {
+        color: #ffffff;
+      }
+    }
+  }
+  &-content {
+    width: 0;
+    flex: 1;
+    padding-right: 20px;
+  }
+  &-arrow {
+    width: @font_size_xs * 2;
+    height: @font_size_xs * 2;
+  }
+  &-title {
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: @font_size_lg;
+    color: @font_color_1;
+  }
+  &-time {
+    font-size: @font_size_sm;
+    color: @font_color_2;
+  }
+  &-arrow {
+    font-size: @font_size_xs * 2;
+    color: #6D83A7;
+  }
+}

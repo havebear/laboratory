@@ -1,0 +1,35 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-09-08 09:33:02
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-08 10:28:29
+ * @Description:  重置
+ */
+
+.ql-editor {
+  color: @font_color_2;
+}
+
+.ql-editor.ql-blank::before {
+  color: @input_placeholder_color;
+}
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border-color: @input_border_color;
+}
+
+.ql-snow {
+  .ql-picker,
+  .ql-fill,
+  .ql-stroke.ql-fill,
+  .ql-stroke {
+    color: @font_color_2;
+    stroke: @font_color_2;
+    // fill: @font_color_2;
+  }
+}
+
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+  fill: @font_color_2;
+}

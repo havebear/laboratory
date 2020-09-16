@@ -1,0 +1,40 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-18 18:03:47
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-08-28 10:55:05
+ * @Description:  面板
+ */
+
+ .@{component_perfix}-panel {
+  .common_panel;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: @font_size_md;
+  color: @font_color_info;
+  &-header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid @border_color;
+    &-icon {
+      margin-right: @padding / 2;
+      font-size: @font_size_md * 1.25;
+    }
+  }
+  &-title {
+    width: 0;
+    flex: 1;
+  }
+  &-right {
+    font-size: @font_size_sm;
+    cursor: pointer;
+  }
+  &-body {
+    height: 0;
+    flex: 1;
+  }
+}

@@ -1,0 +1,123 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-09-07 09:52:59
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-08 10:44:31
+ * @Description:  充值iview样式
+ */
+
+//  表单
+.ivu-input {
+  background-color: @input_bg;
+  color: @input_color;
+  border-color: @input_border_color;
+  &::-webkit-input-placeholder {
+    color: @input_placeholder_color;
+  }
+}
+
+.ivu-select {
+  &-selection {
+    background-color: @input_bg;
+    color: @input_color;
+  }
+  &-single &-selection &-placeholder,
+  &-placeholder {
+    color: @input_placeholder_color;
+  }
+  &-selection {
+    border-color: @input_border_color;
+  }
+}
+
+.ivu-form {
+  .ivu-form-item-label {
+    color: @input_color;
+  }
+}
+
+// 表格
+.ivu-table {
+  background-color: @panel_bg;
+  color: @table_body_color;
+  &::before, &::after {
+    width: 0;
+    height: 0;
+  }
+  &-wrapper {
+    overflow: hidden;
+    background-color: @panel_bg;
+    border-radius: @radius;
+    border: none;
+  }
+  td {
+    background-color: @table_row_even_bg;
+  }
+  td, th {
+    border: none;
+  }
+  th {
+    background-color: @table_header_bg;
+  }
+}
+
+.ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td {
+  background-color: @table_row_odd_bg;
+}
+
+.ivu-table-stripe .ivu-table-body tr.ivu-table-row-hover td, .ivu-table-stripe .ivu-table-fixed-body tr.ivu-table-row-hover td {
+  background-color: @table_row_hover_bg
+}
+
+tr.ivu-table-row-hover td {
+  background-color: @table_row_hover_bg
+}
+
+// 分页
+.ivu-page-next, .ivu-page-prev, .ivu-page-item  {
+  background-color: @panel_bg;
+  border: none;
+  border-radius: 0;
+  color: @font_color_2;
+}
+
+.ivu-page-item-active {
+  background-color: @font_color_info;
+  color: #ffffff;
+}
+
+.ivu-page-item-active a, .ivu-page-item-active:hover a {
+  color: #ffffff !important;
+}
+
+.ivu-page-item a {
+  color: @font_color_2;
+}
+
+.ivu-page-options-elevator {
+  input {
+    background-color: @input_bg;
+    color: @input_color;
+    border-color: @input_border_color;
+    &::-webkit-input-placeholder {
+      color: @input_placeholder_color;
+    }
+  }
+}
+
+.ivu-table-header {
+  color: @table_header_color;
+}
+
+// pop
+.ivu-poptip-inner {
+  background-color: @panel_bg;
+  color: @font_color_2;
+}
+
+.ivu-poptip-popper[x-placement^=top] .ivu-poptip-arrow {
+  border-top-color: @panel_bg;
+  &:after {
+    border-top-color: @panel_bg;
+  }
+}

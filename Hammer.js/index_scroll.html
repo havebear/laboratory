@@ -1,0 +1,66 @@
+<!--
+ * @Author: 616749285@qq.com
+ * @Date: 2020-07-22 13:39:29
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-07-22 14:21:37
+ * @Description:  
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hammer.js</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #app {
+        position: relative;
+        width: 500px;
+        height: 100px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      30分钟内让你明白正则表达式是什么，并对它有一些基本的了解，让你可以在自己的程序或网页里使用它。一旦入门后，你可以从网上找到更多更详细的资料来继续学习。
+      别被下面那些复杂的表达式吓倒，只要跟着我一步一步来，你会发现正则表达式其实并不像你想像中的那么困难。当然，如果你看完了这篇教程之后发现自己明白了
+      很多，却又几乎什么都记不得，那也是很正常的--其实我认为没接触过正则表达式的人在看完这篇教程后能把提到过的语法记住80%以上的可能性为零。这里只
+      是让你明白基本道理，以后你还需要多练习，多查资料，才能熟练掌握正则表达式。
+      正则表达式是用于进行文本匹配的工具，所以本文里多次提到了在字符串里搜索/查找，这种说法的意思是在给定的字符串中，查找与给定的正则表达式相匹配的部分。有可能字符串里有不止一个部分满足给定的正则表达式，这时每一个这样的部分被称为一个匹配。匹配在本文里可能会有三种意思：一种是形容词性的，比如说一个字符串匹配一个表达式；一种是动词性的，比如说在字符串里匹配正则表达式；还有一种是名词性的，就是刚刚说到的“字符串中满足给定的正则表达式的一部分”。
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+    <script>
+      window.onload = () => {
+        const app = document.querySelector("#app");
+        const hammertime = new Hammer(app);
+        const WIDTH = app.clientWidth;
+        const HEIGHT = app.clientHeight;
+
+        hammertime.on("panleft", (e) => {
+          const { deltaX, deltaY } = e;
+          app.scrollLeft = app.scrollLeft - deltaX
+          console.log({ deltaX, deltaY })
+        });
+
+        hammertime.on("panright", (e) => {
+          const { deltaX, deltaY } = e;
+          app.scrollLeft = app.scrollLeft - deltaX
+          console.log({ deltaX, deltaY })
+        });
+
+        hammertime.on("panend", (e) => {
+          // console.log(e, "结束");
+        });
+      };
+    </script>
+  </body>
+</html>

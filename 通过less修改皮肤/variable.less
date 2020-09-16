@@ -1,0 +1,119 @@
+// 万江组件库前缀
+@component_perfix: wj;
+// 万江框架库前缀
+@framework_perfix: wjfw;
+
+// 不可变
+@nav_height: 70px;
+@nav_padding: 0 40px;
+@nav_logo_img_size: 26px;
+@nav_logo_img_right: 15px;
+@nav_logo_text_size: 20px;
+@nav_logo_text_weight: 600;
+
+// 水质等级
+@wq_level_color_1: #57CAF9;
+@wq_level_color_2: #00C782;
+@wq_level_color_3: #74FAA5;
+@wq_level_color_4: #FFFD53;
+@wq_level_color_5: #F29F39;
+@wq_level_color_6: #EC3223;
+
+// 可变
+@nav_background: #ffffff;
+@nav_shadow: 0px 1px 10px #00000021;
+@tool_background: #ffffff;
+@tool_font_color: #222328;
+@action_background: #f5f6f7;
+@action_panel_background: #ffffff;
+@data_null_color: #afafaf;
+@title_color: #515a6e;
+@info_background: #fff;
+@task_title_color: #222328;
+@task_time_color: #515a6e;
+@news_tab_color: #7f87ae;
+@news_list_color: #222328;
+
+
+// 自定义(补充)，下划线
+@header_bg: #060b17;                                  // 顶部导航栏背景      #FFFFFF 
+@page_bg: #0a1226;                                    // 页面背景           #F6F7FB
+@panel_bg: #16203e;                                   // 面板背景           #FFFFFF
+
+// 侧边菜单
+@home_slide_bg: #0D152B;
+@home_slide_color: #B3C5E1;
+@home_slide_hover_bg: #1E2847;
+@home_slide_active_bg: #0090FF;
+@home_slide_active_color: #ffffff;
+@home_slide_active_container_bg: #060B17;
+// tab
+@home_tab_color: #B3C5E1;
+
+@border_color: #263051;                               // 边框颜色
+
+@font_color_1: #ffffff;                            // 1级字体颜色        #222328
+@font_color_2: #c9d8ef;                            // 2级字体颜色        #51575B
+@font_color_subscript: #849dc1;                       // 角标字体颜色       #7B8084
+@font_color_info: #0090ff;                            // 信息字体颜色       #0090FF
+
+@font_size_xs: 12px;
+@font_size_sm: 14px;
+@font_size_md: 16px;
+@font_size_lg: 18px;
+@font_size_llg:20px;
+
+@table_row_even_bg: #16203E;                          // 表格偶数行背景      #FFFFFF
+@table_row_odd_bg: #4a4d58;                           // 表格奇数行背景      #F9F9FB
+
+// 业务相关
+// 工作台
+@navigation_list_hover_bg: #263051;
+
+// ant相关，中横线
+// Table
+@table_header_bg: #263051;
+@table_header_color: #ffffff;
+// @table-header-sort-bg: @background-color-base;
+// @table-body-sort-bg: rgba(0, 0, 0, .01);
+@table_row_hover_bg: #263051;
+@table_selected_row_bg: #263051;
+// @table-expanded-row-bg: #fbfbfb;
+// @table-padding-vertical: 16px;
+// @table-padding-horizontal: 16px;
+
+// Form
+// @label-required-color        : @highlight-color;
+@label_color                 : #C9D8EF;
+// @form-item-margin-bottom     : 24px;
+// @form-item-trailing-colon    : true;
+// @form-vertical-label-padding : 0 0 8px;
+// @form-vertical-label-margin  : 0;
+
+// Input
+// @input-height-base           : 32px;
+// @input-height-lg             : 40px;
+// @input-height-sm             : 24px;
+// @input-padding-horizontal    : @control-padding-horizontal - 1px;
+// @input-padding-horizontal-base: @input-padding-horizontal;
+// @input-padding-horizontal-sm : @control-padding-horizontal-sm - 1px;
+// @input-padding-horizontal-lg : @input-padding-horizontal;
+// @input-padding-vertical-base : 4px;
+// @input-padding-vertical-sm   : 1px;
+// @input-padding-vertical-lg   : 6px;
+@input_placeholder_color     : #707C97;
+@input_color                 : #C9D8EF;
+@input_border_color          : #314B6F;
+@input_bg                    : #fff;
+// @input-addon-bg              : @background-color-light;
+// @input-hover-border-color    : @primary-color;
+// @input-disabled-bg           : @disabled-bg;
+// @input-outline-offset        : 0 0;
+
+// 子节点横向对齐
+.child-vertical-align ( @align: middle ) {
+  & > * {
+    display: inline-block;
+    vertical-align: @align;
+  }
+}

@@ -1,0 +1,70 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-31 15:38:58
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-01 16:51:32
+ * @Description:  侧边菜单
+ */
+
+.home-slide {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  top: 0;
+  left: -200px;
+  display: flex;
+  flex-direction: column;
+  background-color: @home_slide_bg;
+  transition: left 0.3s;
+}
+
+.home-slide.active {
+  left: 0;
+}
+.home-slide-menu {
+  height: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+.home-slide-menu::-webkit-scrollbar {
+  width: 3px;
+  height: 1px;
+}
+.home-slide-menu::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.2);
+}
+.home-slide-menu::-webkit-scrollbar-track {
+  box-shadow: none;
+  border-radius: 5px;
+  background: transparent;
+}
+.home-slide-expand {
+  position: relative;
+  height: 40px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.home-slide-expand img {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  top: 13px;
+  right: 13px;
+  transition: all 0.3s;
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+.home-slide-expand img.active {
+  transform: rotate(0);
+  -ms-transform: rotate(0);
+  -moz-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  -o-transform: rotate(0);
+  margin-right: 50%;
+  right: -7px;
+}

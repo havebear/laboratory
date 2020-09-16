@@ -1,0 +1,54 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-08-20 15:15:12
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-08-28 11:04:29
+ * @Description:  用户预览板块
+ */
+
+.perview {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &-user {
+    height: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid @border_color;
+    &-name {
+      padding-top: 20px;
+      font-size: @font_size_xs * 2;
+      color: @font_color_1;
+    }
+    // 覆盖原有样式
+    .ivu-avatar-large {
+      width: 120px;
+      height: 120px;
+      line-height: 120px;
+      border-radius: 60px;
+    }
+    .ivu-avatar-large.ivu-avatar-icon {
+      font-size: 80px;
+    }
+  }
+  &-total {
+    text-align: center;
+    &-item {
+      display: inline-block;
+      width: 25%;
+      padding: 20px 0;
+    }
+    &-num {
+      font-size: 30px;
+      font-weight: bold;
+      color: @font_color_1;
+    }
+    &-title {
+      font-size: @font_size_sm;
+      color: @font_color_2;
+    }
+  }
+}

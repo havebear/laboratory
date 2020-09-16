@@ -1,0 +1,54 @@
+/*
+ * @Author: 616749285@qq.com
+ * @Date: 2020-09-15 17:07:32
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2020-09-16 14:07:19
+ * @Description:  数据展示面板
+ */
+
+.@{component_perfix}-data-panel {
+  min-height: 100%;
+  &-header {
+    padding: @padding;
+    display: flex;
+    margin-bottom: @padding;
+  }
+  &-filter {
+    width: 0;
+    max-height: 40px;
+    flex: 1;
+    overflow: hidden;
+    &.expand {
+      max-height: none;
+    }
+    &-form {
+      .ant-form-item {
+        display: flex;
+      }
+      /deep/ .ant-form-item-control-wrapper {
+        flex: 1;
+      }
+      /deep/ .ant-form-item-label {
+        // width: 5.5em;
+        width: auto;
+        text-align: left;
+      }
+    }
+  }
+  &-search {
+    padding-top: 3px;
+    & > * {
+      margin-left: 10px;
+    }
+  }
+  &-expand {
+    cursor: pointer;
+    color: #AEBBC3;
+    span:first-child {
+      margin-right:  5px;
+    }
+    &-icon {
+      font-size: 12px;
+    }
+  }
+}
