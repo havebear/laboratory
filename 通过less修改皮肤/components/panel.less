@@ -2,39 +2,45 @@
  * @Author: 616749285@qq.com
  * @Date: 2020-08-18 18:03:47
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2020-08-28 10:55:05
+ * @LastEditTime: 2020-09-25 15:56:32
  * @Description:  面板
  */
 
- .@{component_perfix}-panel {
-  .common_panel;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: @font_size_md;
-  color: @font_color_info;
+.@{component_perfix}-panel {
+  margin-bottom: @padding;
+  background-color: @panel_bg;
+  border-radius: @radius;
   &-header {
-    height: 56px;
+    height: 76px;
     display: flex;
     align-items: center;
-    padding: 0 15px;
-    border-bottom: 1px solid @border_color;
-    &-icon {
-      margin-right: @padding / 2;
-      font-size: @font_size_md * 1.25;
+    padding: 0px 30px;
+    &.border-none {
+      border: none;
+    }
+    &-main {
+      width: 0;
+      flex: 1;
+      margin: 0 @padding;
     }
   }
   &-title {
-    width: 0;
-    flex: 1;
-  }
-  &-right {
-    font-size: @font_size_sm;
-    cursor: pointer;
+    font-size: @font_size_md;
+    font-weight: bold;
+    &-bar {
+      display: inline-block;
+      width: 3px;
+      height: 15px;
+      // margin-right: 23px;
+      margin-right: 15px;
+      background-color: @font_color_info;
+    }
+    &-icon {
+      font-size: @font_size_llg;
+      margin-right: 5px;
+    }
   }
   &-body {
-    height: 0;
-    flex: 1;
+    padding: 0px 30px 30px 30px;
   }
 }

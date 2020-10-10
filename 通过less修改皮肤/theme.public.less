@@ -1,0 +1,288 @@
+@import './theme.variable.less';
+@import './theme.antd.less';
+
+//通用页面背景颜色
+.common_page_bg_color
+{
+   background-color: @page_bg;
+}
+
+// 通用面板背景颜色
+.common_panel_bg_color
+{
+   background-color: @panel_bg;
+}
+
+// 通用一级字体颜色
+.common_font_color_1
+{
+   color: @font_color_1;
+}
+
+// 通用二级字体颜色
+.common_font_color_2
+{
+   color: @font_color_2;
+}
+
+//通用角标字体颜色 
+.common_font_color_subscript
+{
+   color:@font_color_subscript
+}
+
+//通用信息/选择字体颜色
+.common_font_color_info
+{
+   color:@font_color_info
+}
+//通用阴影
+.common_boxshadow
+{
+   box-shadow: 0px 0px 10px 1px @panel_box-shadow !important;
+}
+
+//列表阴影
+.common_table_boxshadow
+{
+   .ant-table
+   {
+      box-shadow: 0px 0px 10px 1px @panel_box-shadow !important;
+   }
+}
+
+//通用展示数据页面
+.data-page {
+   height: 100%;
+   overflow: auto;
+   padding: 20px 10px 0px 20px !important;
+   background-color: @page_bg;
+}
+
+//通用面板
+.common_panel {
+   padding: 15px;
+   border-radius: 8px;
+}
+
+// 通用面板项目前标号 icon
+.common_items
+{
+   color:@white_color;
+   background-color: @items_bg;
+}
+
+//通用统计面板
+.common_statistics_panel
+{
+   background-color: @statistics_panel_bg;
+}
+
+/**样式覆盖*/
+body
+{
+   color: @font_color_2 !important;
+   background-color: @page_bg !important;
+}
+a
+{
+   color: @font_color_info !important;
+}
+
+a:hover
+{
+   color: @font_color_info !important;
+}
+
+//滚动条 (chrome下有效)
+
+/*滚动条整体部分,必须要设置*/
+::-webkit-scrollbar {
+   width: 10px;
+   height: 10px;
+   background-color:@scrollbar_bg;
+}
+
+//  /*滚动条的轨道*/
+//  ::-webkit-scrollbar-track{
+//    // box-shadow: inset 0 0 5px rgba(0,0,0,.3);
+//    background-color: #2E3752;
+// }
+
+/*滑块*/
+::-webkit-scrollbar-thumb {
+   background-color: @scrollbar_thumb_bg;
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background-color: @scrollbar_thumb_hover;
+}
+
+/*横竖滚动条交角*/  
+ ::-webkit-scrollbar-corner {  
+   background-color: @scrollbar_bg;  
+}  
+
+//公共控件样式覆盖
+.data-panel
+{
+   &-header
+   {
+      background-color: @panel_bg;
+      box-shadow: 0px 0px 15px 1px @panel_box-shadow;
+   }
+   &-search
+   {
+      .btn_rest
+      {
+         border-color: @font_color_info !important;
+         color:@font_color_info !important;
+         background-color:transparent;
+      }
+
+      .btn_rest:hover,
+      .btn_rest:focus,
+      .btn_rest:active,
+      .btn_rest.active {
+         border-color: @font_color_info !important;
+         color:@font_color_info !important;
+         background-color:transparent;
+      }
+   }
+   &-expand{
+      color:  @font_color_2;
+   }
+   
+   &-action {
+      &-icon {
+         color: @btn_table_operate_color;
+      }
+      &-btn {
+        background-color: @btn_table_operate_bg;
+        color: @btn_table_operate_color;
+        &:hover {
+          background-color:@font_color_info;
+          color:@white_color;
+        }
+      }
+    }
+}
+
+//自定义svg图标组件
+.svg_icon_default {
+   fill:@font_color_subscript !important;
+}
+
+//详情容器组件
+.detail_panel
+{
+   &_header
+   {
+      background: @panel_bg;
+      box-shadow: 0px 0px 10px @panel_box-shadow;
+      &_title
+      {
+         color: @font_color_1;
+      }
+   }
+}
+
+//详情组件
+.info_panel
+{
+   .info
+   {
+      color: @font_color_2;
+   }
+}
+
+//panel容器组件
+.panel
+{
+   background: @panel_bg;
+   box-shadow: 0px 0px 10px @panel_box-shadow;
+   &-title
+   {
+      color: @font_color_1;
+      &-bar {
+         background-color: @font_color_info;
+       }
+   }
+}
+
+//图片预览
+.viewer-container
+{
+   .viewer-toolbar > ul > li
+   {
+      background-color: @font_color_info !important;
+   }
+   .viewer-button
+   {
+      background-color: @font_color_info !important;
+   }
+
+   .viewer-navbar
+   {
+      background-color:rgba(0, 0, 0, 0.5) !important;
+   }
+}
+
+//通用loading
+.common_loading
+{
+   .common_loading_mark
+   {
+      background-color:@loading_mark_bg !important;
+   }
+   
+}
+
+//比较组件
+.compare_info
+{
+   .compare_info_equal
+   {
+       color: @font_color_1 !important;
+   }
+}
+
+// 水质等级
+.common_wq_level {
+   display: inline-block;
+   width: 44px;
+   height: 18px;
+   background: #F29F39;
+   font-size: @font_size_xs;
+   line-height: 18px;
+   font-weight: 400;
+   text-align: center;
+   color: #FFFFFF;
+   border: 1px solid #F29F39;
+   border-radius: 2px;
+   &_1 {
+      background-color: @wq_level_color_1;
+      border-color: @wq_level_color_1;
+   }
+   &_2 {
+      background-color: @wq_level_color_2;
+      border-color: @wq_level_color_2;
+   }
+   &_3 {
+      background-color: @wq_level_color_3;
+      border-color: @wq_level_color_3;
+   }
+   &_4 {
+      background-color: @wq_level_color_4;
+      border-color: @wq_level_color_4;
+   }
+   &_5 {
+      background-color: @wq_level_color_5;
+      border-color: @wq_level_color_5;
+   }
+   &_6 {
+      background-color: @wq_level_color_6;
+      border-color: @wq_level_color_6;
+   }
+}

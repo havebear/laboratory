@@ -2,15 +2,12 @@
  * @Author: 616749285@qq.com
  * @Date: 2020-08-31 15:39:22
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2020-09-04 16:05:12
+ * @LastEditTime: 2020-09-25 15:15:12
  * @Description:  覆盖iview样式
  */
 
 .ivu-menu-vertical.ivu-menu-light:after {
   background-color: transparent;
-}
-.home-header .ivu-select-dropdown {
-  z-index: 901;
 }
 .home-main .ivu-tabs {
   width: 100%;
@@ -23,7 +20,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  padding-top: 71px;
+  padding-top: 40px + (@padding - 4px) * 2;
   will-change: transform;
   transition: transform 0.3s ease-in-out;
 }
@@ -33,7 +30,7 @@
   width: 100%;
   left: 0;
   margin-bottom: 0;
-  padding: 16px 20px;
+  padding: @padding - 4px @padding;
   border: none;
 }
 .home-main .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab {
