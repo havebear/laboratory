@@ -2,7 +2,7 @@
  * @Author: 616749285@qq.com
  * @Date: 2020-08-20 18:02:15
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2020-09-11 09:26:14
+ * @LastEditTime: 2020-10-28 15:18:39
  * @Description:  工具板块
  */
 
@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    vertical-align: center;
+    vertical-align: top;
     color: @font_color_2;
     cursor: pointer;
     transition: all 0.3s;
@@ -36,5 +36,34 @@
     &-title {
       font-size: @font_size_lg;
     }
+  }
+}
+
+.tool {
+  /* 格子虚线边框 */
+  &-grid-dashed {
+    position: relative;
+  }
+
+  &-grid-dashed::before,
+  &-grid-dashed::after {
+    content : '';
+    position: absolute;
+  }
+
+  &-grid-dashed::before {
+    top         : 0;
+    right       : -1px;
+    width       : 0;
+    height      : 100%;
+    border-right: 1px dashed #DCDEE2;
+  }
+
+  &-grid-dashed::after {
+    bottom       : -1px;
+    left         : 0;
+    width        : 100%;
+    height       : 0;
+    border-bottom: 1px dashed #DCDEE2;
   }
 }

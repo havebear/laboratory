@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas射线</title>
+  <style>
+    html, body, canvas {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      /* content-zooming: none; */
+      padding:0;
+      margin:0;
+    }
+  </style>
+</head>
+<body>
+  <canvas></canvas>
+
+  <script>
+    let af;
+    // const numLasers = 250;
+    const numLasers = 250;
+    const tail = 200;
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+    // 创建激光
+    const createLasers = n => {
+      const lasers = [];
+      for (let i = 0; i < n; ++i) {
+        lasers.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          s: Math.random() * 2 + 1
+        });
+      }
+      return lasers;
+    };
+    // 渲染激光
+    const renderLaser = l => {
+      const grad = ctx.createLinearGradient(l.x, l.y, l.x, l.y + tail);
+      const a = 1 - (canvas.height - l.y) / canvas.height * 0.8;
+      grad.addColorStop(0, `hsla(340,100%,100%,${a})`);
+      grad.addColorStop(1, "hsla(340,100%,50%,0)");
+      ctx.strokeStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(l.x, l.y);
+      ctx.lineTo((l.x + tail) / Math.random() * 1, (l.y + tail) / Math.random() * 1);
+      ctx.lineTo(l.x + tail, l.y + tail);
+      ctx.stroke();
+    };
+    // 更新激光
+    const updateLaser = l => {
+      l.y -= l.s;
+      l.x -= l.s;
+      // 边界判断
+      if (l.y < -tail) {
+        l.y = canvas.height;
+      }
+      if (l.x < -tail) {
+        l.x = canvas.width;
+      }
+    };
+    // 渲染
+    const render = lasers => {
+      ctx.fillStyle = "hsl(261,43%,7%)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let l of lasers) {
+        renderLaser(l);
+        updateLaser(l);
+      }
+      af = requestAnimationFrame(() => render(lasers));
+    };
+    const init = () => {
+      cancelAnimationFrame(af);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      render(createLasers(numLasers));
+    };
+    window.onresize = init;
+    init();
+  </script>
+</body>
+</html>

@@ -8,9 +8,8 @@
 @font_size_llg: 20px;
 @radius: 5px;
 @padding: 20px;
-
-@white_color: #ffffff;
-@danger_color: #ff4d4f;
+@white_color:#ffffff;
+@danger_color:#ff4d4f;
 @disabled_color: #51575b;
 
 // 主题变化
@@ -21,12 +20,12 @@
 @wq_level_color_4: #fffd53;
 @wq_level_color_5: #f29f39;
 @wq_level_color_6: #ec3223;
-
+@disabled_color:#51575B; // 禁用颜色 #d9d9d9
 // 框架导航栏
 @nav_bg: #060b17; // 顶部导航栏背景      #FFFFFF
+@header_bg: #060b17; // 顶部导航栏背景      #FFFFFF
 @nav_color: #7F87AE;
 @nav_height: 70px;
-
 // 框架主页
 @home_slide_bg: #0d152b;
 @home_slide_color: #b3c5e1;
@@ -42,12 +41,16 @@
 // 通用
 @page_bg: #0a1226; // 页面背景           #F6F7FB
 @panel_bg: #16203e; // 面板背景           #FFFFFF
-@panel_box-shadow: rgba(0, 0, 0, 0.15); //面板阴影颜色 rgba(112, 125, 131, 0.15);
+@panel_box-shadow:rgba(0, 0, 0, 0.15); //面板阴影颜色 rgba(112, 125, 131, 0.15);
+@side_nav_bg: #0d152b; // 侧边菜单背景        #0090FF
+@side_nav_selected_bg: #0090ff; // 侧边菜单选中背景    #0072F7
+@side_nav_hover_bg: rgba(0, 144, 255, 0.3); // 侧边菜单移入背景    rgba(0, 144, 255, 0.5)
 @font_color_1: #ffffff; // 1级字体颜色        #222328
 @font_color_2: #c9d8ef; // 2级字体颜色        #51575B
 @font_color_subscript: #849dc1; // 角标字体颜色       #A2A6A8
 @font_color_info: #0090ff; // 信息字体颜色       #0090FF
-@border_color: #1e2e4c; // 边框颜色 #e8e8e8
+@border_color:#1E2E4C; // 边框颜色 #e8e8e8
+@navigation_list_hover_bg: #263051; // 工作台列表鼠标移入
 
 // Table
 @table_header_bg: #263051; //表格头部背景  #EFF0F5
@@ -119,7 +122,11 @@
 @statistics_WaterChart_colorStart: #088FF7; //水面统计图背景 #50B3FF
 
 @statistics_WaterChart_colorEnd: #01306D; //水面统计图背景 #0072F7
-
+// 日历日期禁用颜色
+@calendar-disabled-cell:#AFB1B3; //'#435d82';
+ // 水情详情数据卡片  UI要求
+ @water-regime-title: '#0090FF'; // '#FFFFFF'
+ @water-regime-text: '#51575B'; // '#FFFFFF'
 // 子节点横向对齐
 .child-vertical-align ( @align: middle ) {
   & > * {
@@ -127,3 +134,10 @@
     vertical-align: @align;
   }
 }
+
+
+
+
+
+
+

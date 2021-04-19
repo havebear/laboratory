@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas射线</title>
+  <style>
+    html, body, canvas {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      /* content-zooming: none; */
+      padding:0;
+      margin:0;
+    }
+  </style>
+</head>
+<body>
+  <canvas></canvas>
+
+  <script>
+    let af
+    const gridSize = 30
+    const canvas = document.querySelector("canvas")
+    const ctx = canvas.getContext("2d")
+    const options = [
+      {
+        length: 8,
+        offset: 1,
+        start: { x: 1, y: 1 },
+        end: { x: 13, y: 11 },
+        path: [
+          { x: 2, y: 3 },
+          { x: 4, y: 5}
+        ]
+      }
+    ]
+
+    // 渲染背景
+    const renderBg = () => {
+      ctx.fillStyle = "hsl(261,43%,7%)"
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+
+    // 创建网格线条
+    const createGridlines = () => {
+      const { width, height } = canvas
+      const xLines = new Array(Math.floor(width / gridSize)).fill(0).map((item, index) => ({
+        start: [ gridSize * (index + 1), 0 ],
+        end: [ gridSize * (index + 1), height - 0.5 ],
+        type: 0
+      }))
+      const yLines = new Array(Math.floor(height / gridSize)).fill(0).map((item, index) => ({
+        start: [ 0 ,gridSize * (index + 1) ],
+        end: [ width - 0.5, gridSize * (index + 1) ],
+        type: 1
+      }))
+      return [ ...xLines, ...yLines ]
+    }
+
+    // 渲染网格线条
+    const renderGrid = () => {
+      const lines = createGridlines()
+      lines.forEach(item => {
+        ctx.beginPath()
+        ctx.moveTo(...item.start)
+        ctx.lineTo(...item.end)
+        ctx.strokeStyle = '#333'
+        ctx.stroke()
+      })
+    }
+
+    // 补齐路径
+    const makePath = path => {
+      const _path = []
+      for (let i = 0; path[i]; i++) {
+        const cur = path[i]
+        const next = path[i + 1]
+        _path.push({ ...cur })
+        // 两点线条未和边缘平行
+        if (next && cur.x !== next.x && cur.y !== next.y) {
+          if (next.x > cur.x) {
+            _path.push({ x: cur.x, y: next.y })
+          } else {
+            _path.push({ x: next.x, y: cur.x })
+          }
+        }
+      }
+      return _path
+    }
+
+    // 两点间距离
+    const getTwoPointDistance = (point1, point2) => {
+      // debugger
+      const value1 = Math.pow(point1.x - point2.x, 2)
+      const value2 = Math.pow(point1.y - point2.y, 2)
+      return Math.sqrt(value1 + value2)
+    }
+
+    // 获取射线默认head
+    const getLinserDefaultHead = (point, paths, length) => {
+      // 只有起止点
+      if (paths.length === 2) {
+        const first = paths[0]
+        const last = paths[1]
+        if (first.x === last.x) return { x: first.x * gridSize, y: (length > last.y - first.y ? last.y : last.y - length) * gridSize }
+        if (first.y === last.y) return { x: first.x * gridSize, y: (length > last.x - first.x ? last.x : last.x - length) * gridSize }
+      }
+      let count = length
+      for (let i = 0; paths[i]; i++) {
+        const cur = paths[i]
+        const next = paths[i + 1]
+        if (next) {
+          count -= getTwoPointDistance(cur, next)
+          if (count <= 0) {
+            if (cur.x === next.x) return { x: cur.x * gridSize, y: (length > next.y - cur.y ? next.y : next.y - length) * gridSize }
+            if (cur.y === next.y) return { x: cur.x * gridSize, y: (length > next.x - cur.x ? next.x : next.x - length) * gridSize }
+          }
+        }
+      }
+    }
+
+    // 根据坐标获取对应路段
+    const getPathIndexByPoint = (point, paths) => {
+      for (let i = 0; paths[i]; i++) {
+        const cur = paths[i]
+        const next = paths[i + 1]
+        if (next && ((point.x >= cur.x * gridSize && point.x <= next.x * gridSize && cur.y * gridSize === point.y) || (point.y >= cur.y * gridSize && point.y <= next.y * gridSize && cur.x * gridSize === point.x))) {
+          return i
+        }
+        if (!next) return paths.length - 1
+      }
+    }
+
+    // 获取经过的path前后索引
+    const getPathRange = ({ path, current: { head, tail } }) => {
+      return [ getPathIndexByPoint(tail, path), getPathIndexByPoint(head, path) ]
+    }
+
+    // 创建激光
+    const createLasers = () => {
+      const lasers = []
+      options.forEach(({ start, end, path, offset, length }) => {
+        const temp = {
+          start: { ...start },
+          end: { ...end },
+          offset,
+          path: makePath([ start, ...path, end ]),
+          length
+        }
+        temp['current'] = {
+          tail: { x: start.x * gridSize, y: start.y * gridSize, index: 0 },
+          head: getLinserDefaultHead(start, temp.path, length)
+        }
+        lasers.push(temp)
+      })
+      console.log(lasers)
+      return lasers
+    }
+
+    // 渲染单个激光
+    const renderLaser = ({ path, current: { head, tail } }) => {
+      const { offsetX, offsetY } = canvas
+      ctx.strokeStyle = 'red'
+      ctx.beginPath()
+      ctx.moveTo(tail.x, tail.y)
+      const range = getPathRange({ path, current: { tail, head } })
+      console.log(range)
+      for (let i = range[0]; i <= range[1]; i++) {
+        ctx.lineTo(path[i].x * gridSize, path[i].y * gridSize)
+      }
+      // ctx.lineTo(head.x, head.y)
+      ctx.stroke()
+    }
+
+    // 渲染激光
+    const renderLasers = lasers => {
+      // const lasers = createLasers()
+      lasers.forEach(item => {
+        renderLaser(item)
+        updateLaser(item)
+      })
+      // af = requestAnimationFrame(() => renderLasers(lasers))
+    }
+
+    // 更新激光
+    const updateLaser = laser => {
+      const { offset, current: { head, tail }, path } = laser
+      // 下一个转折点
+      const headNextPath = path[getPathIndexByPoint(head, path)]
+      const tailNextPath = path[getPathIndexByPoint(tail, path)]
+
+      const headNextPathX = headNextPath.x * gridSize
+      const headNextPathY = headNextPath.y * gridSize
+
+      const tailNextPathX = tailNextPath.x * gridSize
+      const tailNextPathY = tailNextPath.y * gridSize
+
+      // console.log(offset)
+      // console.log({ head, tail, headNextPathX, headNextPathY, tailNextPathX, tailNextPathY })
+      // laser.current.head.x += offset
+      // laser.current.head.y += offset
+
+      if (head.x === headNextPathX) {
+        if (tailNextPathY - tail.y > 0) {
+          laser.current.head.x += headNextPathY - head.y
+        } else {
+          laser.current.head.y += offset
+        }
+      }
+
+      if (head.y === headNextPathY) {
+        if (tailNextPathY - tail.y > 0) {
+          laser.current.head.y += headNextPathX - head.x
+        } else {
+          laser.current.head.x += offset
+        }
+      }
+
+      if (tail.x === tailNextPathX) {
+        if (tailNextPathY - tail.y > 0) {
+          laser.current.tail.x += tailNextPathY - tail.y
+        } else {
+          laser.current.tail.y += offset
+        }
+      }
+
+      if (tail.y === tailNextPathY) {
+        if (tailNextPathX - tail.x > 0) {
+          laser.current.tail.y += tailNextPathX - tail.x
+        } else {
+          laser.current.tail.x += offset
+        }
+      }
+
+      console.log(laser.current)
+    }
+
+    const init = () => {
+      cancelAnimationFrame(af);
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      renderBg()
+      renderGrid()
+      renderLasers(createLasers())
+    };
+    window.onresize = init
+    init()
+  </script>
+</body>
+</html>

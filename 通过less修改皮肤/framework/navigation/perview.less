@@ -2,7 +2,7 @@
  * @Author: 616749285@qq.com
  * @Date: 2020-08-20 15:15:12
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2020-08-28 11:04:29
+ * @LastEditTime: 2020-10-28 15:08:32
  * @Description:  用户预览板块
  */
 
@@ -19,9 +19,13 @@
     justify-content: center;
     border-bottom: 1px solid @border_color;
     &-name {
+      width: 10em;
       padding-top: 20px;
       font-size: @font_size_xs * 2;
       color: @font_color_1;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
     }
     // 覆盖原有样式
     .ivu-avatar-large {

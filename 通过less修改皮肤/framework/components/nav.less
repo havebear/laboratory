@@ -2,7 +2,7 @@
  * @Author: 616749285@qq.com
  * @Date: 2020-08-18 14:58:08
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2020-10-10 11:04:59
+ * @LastEditTime: 2020-10-28 15:12:42
  * @Description:  导航栏
  */
 
@@ -19,7 +19,7 @@
     padding: 0 40px;
     font-size: @font_size_sm;
     background-color: @nav_bg;
-    color: @font_color_2
+    color: @font_color_1;
   }
 
   // Logo
@@ -72,9 +72,7 @@
     flex: 1;
     font-size: @font_size_md;
     &-item {
-      .child-vertical-align;
       margin-right: 45px;
-      line-height: 24px;
     }
   }
 
@@ -90,7 +88,7 @@
     }
     .ivu-badge {
       margin-right: 7px;
-      padding: 2px 4px;
+      padding: 2px 7px;
       cursor: pointer;
       &-count {
         min-width: 16px;
@@ -103,10 +101,19 @@
     }
     &-info {
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
     &-avatar,
     &-name {
       margin-right: 10px;
+    }
+    &-name {
+      display: inline-block;
+      max-width: 10em;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
     }
     &-avatar {
       margin-left: 10px;

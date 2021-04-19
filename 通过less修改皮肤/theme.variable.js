@@ -1,8 +1,8 @@
-/*
+﻿/*
  * @Author: 616749285@qq.com
  * @Date: 2020-09-11 16:19:55
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2020-10-09 17:14:25
+ * @LastEditTime: 2020-09-16 15:19:50
  * @Description:  平台变量
  */
 
@@ -10,6 +10,7 @@
 var frameworkThemeVariable = [
   // 浅色
   {
+    // 不变
     '@white_color': '#ffffff',
     '@danger_color': '#ff4d4f',
     // 框架导航栏
@@ -26,15 +27,21 @@ var frameworkThemeVariable = [
     // 框架工作台
     '@navigation_list_hover_bg': '#0090FF',
     // 通用
-    '@page_bg': '#F6F7FB',  // 页面背景
-    '@panel_bg': '#FFFFFF', // 面板背景
+    '@disabled_color': '#d9d9d9',
+    '@header_bg': '#FFFFFF',
+    '@page_bg': '#F6F7FB',
+    '@panel_bg': '#FFFFFF',
     '@panel_box-shadow': 'rgba(112, 125, 131, 0.20)', // 面板阴影颜色 rgba(112, 125, 131, 0.15);
-    '@font_color_1': '#222328', // 1级字体颜色
-    '@font_color_2': '#51575B', // 2级字体颜色
-    '@font_color_subscript': '#7B8084', // 角标字体颜色
-    '@font_color_info': '#0090ff',  // 信息字体颜色
+    '@side_nav_bg': '#0090FF',
+    '@side_nav_selected_bg': '#0072F7',
+    '@side_nav_hover_bg': 'rgba(0, 144, 255, 0.5)',
+    '@font_color_1': '#222328',
+    '@font_color_2': '#51575B',
+    '@font_color_subscript': '#7B8084',
+    '@font_color_info': '#0090ff',
     '@disabled_color': '#d9d9d9', // 禁止输入字体颜色
-    '@border_color': '#e8e8e8', // 边框颜色
+    '@border_color': '#e8e8e8',
+    '@navigation_list_hover_bg': '#263051',
     // Table
     '@table_header_bg': '#EFF0F5',
     '@table_header_color': '#222328',
@@ -88,14 +95,20 @@ var frameworkThemeVariable = [
     '@statistics_panel_bg': '#F6F7FB', // 统计面板背景 #F6F7FB
     '@statistics_WaterChart_bg': '#F6F7FB', // 水面统计图背景 #F6F7FB
     '@statistics_WaterChart_colorStart': '#50B3FF', // 水面统计图背景 #50B3FF
-    '@statistics_WaterChart_colorEnd': '#0072F7' // 水面统计图背景 #0072F7
+    '@statistics_WaterChart_colorEnd': '#0072F7', // 水面统计图背景 #0072F7
+    // 日历日期禁用颜色
+    '@calendar-disabled-cell': '#AFB1B3', // ‘#435d82’,
+	    // 水情详情数据卡片  UI要求
+    '@water-regime-title': '#0090FF', // '#FFFFFF'
+    '@water-regime-text': '#51575B' // '#FFFFFF'
   },
   // 深色
   {
+    // 不变
     '@white_color': '#ffffff',
     '@danger_color': '#ff4d4f',
-    // 框架导航栏
-    '@nav_bg': '#060b17',
+    // 通用
+    '@disabled_color': '#51575B', // 禁用颜色 #d9d9d9
     '@nav_color': '#C9D8EF',
     // 框架主页
     '@home_slide_bg': '#0D152B',
@@ -107,16 +120,20 @@ var frameworkThemeVariable = [
     'home_tab_color': '#B3C5E1',
     // 框架工作台
     '@navigation_list_hover_bg': '#263051',
-    // 通用                                // 顶部导航栏背景      #FFFFFF 
-    '@page_bg': '#0a1226',                                    // 页面背景           #F6F7FB
-    '@panel_bg': '#16203e',  
+    '@header_bg': '#060b17', // 顶部导航栏背景      #FFFFFF
+    '@page_bg': '#0a1226', // 页面背景           #F6F7FB
+    '@panel_bg': '#16203e', // 面板背景           #FFFFFF
     '@panel_box-shadow': 'rgba(0, 0, 0, 0.15)', // 面板阴影颜色 rgba(112, 125, 131, 0.15);
-    '@font_color_1': '#ffffff', // 1级字体颜色
-    '@font_color_2': '#c9d8ef', // 2级字体颜色
-    '@font_color_subscript': '#849dc1', // 角标字体颜色
-    '@font_color_info': '#0090ff',  // 信息字体颜色
+    '@side_nav_bg': '#0d152b', // 侧边菜单背景        #0090FF
+    '@side_nav_selected_bg': '#0090ff', // 侧边菜单选中背景    #0072F7
+    '@side_nav_hover_bg': 'rgba(0, 144, 255, 0.3)', // 侧边菜单移入背景    rgba(0, 144, 255, 0.5)
+    '@font_color_1': '#ffffff', // 1级字体颜色        #222328
+    '@font_color_2': '#c9d8ef', // 2级字体颜色        #51575B
+    '@font_color_subscript': '#849dc1', // 角标字体颜色       #7B8084
+    '@font_color_info': '#0090ff', // 信息字体颜色       #0090FF
     '@disabled_color': '#51575B', // 禁止输入字体颜色
     '@border_color': '#1E2E4C', // 边框颜色
+    '@navigation_list_hover_bg': '#263051', // 工作台列表鼠标移入
     // Table
     '@table_header_bg': '#263051', // 表格头部背景  #EFF0F5
     '@table_header_color': '#ffffff', // 表格头部字体颜色 #222328
@@ -171,7 +188,12 @@ var frameworkThemeVariable = [
     '@statistics_panel_bg': 'rgba(255, 255, 255, 0.1)', // 统计面板背景 #F6F7FB
     '@statistics_WaterChart_bg': '#263051', // 水面统计图背景 #F6F7FB
     '@statistics_WaterChart_colorStart': '#088FF7', // 水面统计图背景 #50B3FF
-    '@statistics_WaterChart_colorEnd': '#01306D' // 水面统计图背景 #0072F7
+    '@statistics_WaterChart_colorEnd': '#01306D', // 水面统计图背景 #0072F7
+    // 日历日期禁用颜色
+    '@calendar-disabled-cell': '#435d82', // '#7B8084'
+	   // 水情详情数据卡片  UI要求
+    '@water-regime-title': '#FFF', // '#0090FF'
+    '@water-regime-text': '#FFF' // '#51575B'
   }
 ]
 
