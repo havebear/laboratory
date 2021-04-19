@@ -26,20 +26,27 @@
     const ctx = canvas.getContext("2d")
     const options = [
       {
-        length: 8,
+        length: 20,
         offset: 1,
         start: { x: 1, y: 1 },
         end: { x: 13, y: 11 },
         path: [
           { x: 2, y: 3 },
-          { x: 4, y: 5}
+          { x: 4, y: 5},
+          { x: 12, y: 1},
+          { x: 34, y: 7},
+          { x: 5, y: 6},
+          { x: 7, y: 8},
+          { x: 9, y: 10},
+          { x: 11, y: 23},
+          { x: 13, y: 14}
         ]
       }
     ]
 
     // 渲染背景
     const renderBg = () => {
-      ctx.fillStyle = "hsl(261,43%,7%)"
+      ctx.fillStyle = 'hsl(261,43%,7%)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
 
@@ -48,13 +55,11 @@
       const { width, height } = canvas
       const xLines = new Array(Math.floor(width / gridSize)).fill(0).map((item, index) => ({
         start: [ gridSize * (index + 1), 0 ],
-        end: [ gridSize * (index + 1), height - 0.5 ],
-        type: 0
+        end: [ gridSize * (index + 1), height - 0.5 ]
       }))
       const yLines = new Array(Math.floor(height / gridSize)).fill(0).map((item, index) => ({
         start: [ 0 ,gridSize * (index + 1) ],
-        end: [ width - 0.5, gridSize * (index + 1) ],
-        type: 1
+        end: [ width - 0.5, gridSize * (index + 1) ]
       }))
       return [ ...xLines, ...yLines ]
     }
@@ -78,12 +83,12 @@
         const cur = path[i]
         const next = path[i + 1]
         _path.push({ ...cur })
-        // 两点线条未和边缘平行
+        // 两点连线和边缘不平行
         if (next && cur.x !== next.x && cur.y !== next.y) {
           if (next.x > cur.x) {
             _path.push({ x: cur.x, y: next.y })
           } else {
-            _path.push({ x: next.x, y: cur.x })
+            _path.push({ x: next.x, y: cur.y })
           }
         }
       }
@@ -92,7 +97,6 @@
 
     // 两点间距离
     const getTwoPointDistance = (point1, point2) => {
-      // debugger
       const value1 = Math.pow(point1.x - point2.x, 2)
       const value2 = Math.pow(point1.y - point2.y, 2)
       return Math.sqrt(value1 + value2)
@@ -126,8 +130,11 @@
       for (let i = 0; paths[i]; i++) {
         const cur = paths[i]
         const next = paths[i + 1]
-        if (next && ((point.x >= cur.x * gridSize && point.x <= next.x * gridSize && cur.y * gridSize === point.y) || (point.y >= cur.y * gridSize && point.y <= next.y * gridSize && cur.x * gridSize === point.x))) {
+        if (next && ((point.x > cur.x * gridSize && point.x < next.x * gridSize && cur.y * gridSize === point.y) || (point.y >= cur.y * gridSize && point.y <= next.y * gridSize && cur.x * gridSize === point.x))) {
           return i
+        }
+        if (point.x === cur.x * gridSize && point.y === cur.y * gridSize) {
+          return i + 1
         }
         if (!next) return paths.length - 1
       }
@@ -170,13 +177,12 @@
       for (let i = range[0]; i <= range[1]; i++) {
         ctx.lineTo(path[i].x * gridSize, path[i].y * gridSize)
       }
-      // ctx.lineTo(head.x, head.y)
+      ctx.lineTo(head.x, head.y)
       ctx.stroke()
     }
 
     // 渲染激光
     const renderLasers = lasers => {
-      // const lasers = createLasers()
       lasers.forEach(item => {
         renderLaser(item)
         updateLaser(item)
@@ -187,54 +193,35 @@
     // 更新激光
     const updateLaser = laser => {
       const { offset, current: { head, tail }, path } = laser
+
+
+
       // 下一个转折点
-      const headNextPath = path[getPathIndexByPoint(head, path)]
-      const tailNextPath = path[getPathIndexByPoint(tail, path)]
-
-      const headNextPathX = headNextPath.x * gridSize
-      const headNextPathY = headNextPath.y * gridSize
-
-      const tailNextPathX = tailNextPath.x * gridSize
-      const tailNextPathY = tailNextPath.y * gridSize
-
-      // console.log(offset)
-      // console.log({ head, tail, headNextPathX, headNextPathY, tailNextPathX, tailNextPathY })
-      // laser.current.head.x += offset
-      // laser.current.head.y += offset
-
-      if (head.x === headNextPathX) {
-        if (tailNextPathY - tail.y > 0) {
-          laser.current.head.x += headNextPathY - head.y
-        } else {
-          laser.current.head.y += offset
-        }
-      }
-
-      if (head.y === headNextPathY) {
-        if (tailNextPathY - tail.y > 0) {
-          laser.current.head.y += headNextPathX - head.x
-        } else {
-          laser.current.head.x += offset
-        }
-      }
-
-      if (tail.x === tailNextPathX) {
-        if (tailNextPathY - tail.y > 0) {
-          laser.current.tail.x += tailNextPathY - tail.y
-        } else {
-          laser.current.tail.y += offset
-        }
-      }
-
-      if (tail.y === tailNextPathY) {
-        if (tailNextPathX - tail.x > 0) {
-          laser.current.tail.y += tailNextPathX - tail.x
-        } else {
-          laser.current.tail.x += offset
-        }
-      }
-
-      console.log(laser.current)
+      // const netxPoint = path[currentIndex + 1]
+      // debugger
+      // if (netxPoint) {
+      //   if (netxPoint.x * gridSize === head.x) {
+      //     if (head.y === netxPoint.y * gridSize) {
+      //       laser.current.head.x += offset
+      //       currentIndex++
+      //     }
+      //     if (head.y > netxPoint.y * gridSize + offset) {
+      //       laser.current.head.x += netxPoint.y * gridSize - offset
+      //       currentIndex++
+      //     }
+      //   }
+      //   if (netxPoint.y * gridSize === head.y) {
+      //     if (head.x === netxPoint.x * gridSize) {
+      //       laser.current.head.y += offset
+      //       currentIndex++
+      //     }
+      //     if (head.x > netxPoint.x * gridSize + offset) {
+      //       laser.current.head.y += netxPoint.x * gridSize - offset
+      //       currentIndex++
+      //     }
+      //   }
+      // }
+      // console.log(head, tail, currentIndex)
     }
 
     const init = () => {
