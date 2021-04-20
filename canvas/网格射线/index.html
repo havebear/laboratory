@@ -26,11 +26,18 @@
     const ctx = canvas.getContext("2d")
     const options = [
       {
+        // 长度
         length: 5,
+        // 出现长度
+        appearLength: 2,
+        // 偏移量（px）
         offset: 5,
+        // 起点
         start: { x: 1, y: 1 },
+        // 终点
         end: { x: 21, y: 22 },
-        path: [
+        // 经过坐标
+        paths: [
           { x: 2, y: 3 },
           { x: 4, y: 5},
           { x: 6, y: 7},
@@ -91,16 +98,16 @@
     }
 
     // 补齐路径
-    const makePath = path => {
+    const makePath = paths => {
       const _path = []
-      for (let i = 0; path[i]; i++) {
-        const cur = path[i]
-        const next = path[i + 1]
+      for (let i = 0; paths[i]; i++) {
+        const cur = paths[i]
+        const next = paths[i + 1]
         _path.push({ ...cur })
         // 两点连线和边缘不平行
         if (next && cur.x !== next.x && cur.y !== next.y) {
           const a = angle(cur, next)
-          // if (a > 0 && a < 90) _.path.push({  })}
+          // if (a > 0 && a < 90) _.paths.push({  })}
           if (next.x > cur.x) {
             _path.push({ x: cur.x, y: next.y })
           } else {
@@ -119,52 +126,50 @@
     }
 
     // 根据坐标获取下一个转折点
-    const getNextTurningPointIndex = ({ x, y }, paths) => {
-      const last = paths[paths.length - 1] || {}
-      const lastX = last.x * gridSize
-      const lastY = last.y * gridSize
+    // const getNextTurningPointIndex = ({ x, y }, paths) => {
+    //   const last = paths[paths.length - 1] || {}
+    //   const lastX = last.x * gridSize
+    //   const lastY = last.y * gridSize
       
-      for (let i = 0; paths[i]; i++) {
-        const cur = paths[i] || {}
-        const next = paths[i + 1] || {}
-        const curX = cur.x * gridSize
-        const curY = cur.y * gridSize
-        const nextX = next.x * gridSize
-        const nextY = next.y * gridSize
+    //   for (let i = 0; paths[i]; i++) {
+    //     const cur = paths[i] || {}
+    //     const next = paths[i + 1] || {}
+    //     const curX = cur.x * gridSize
+    //     const curY = cur.y * gridSize
+    //     const nextX = next.x * gridSize
+    //     const nextY = next.y * gridSize
 
-        // 如果为最后一个点，则返回0
-        if (x === lastX && y === lastY) return paths.length - 1
-        // 三点共线，判断point是否在当前两点线段中
-        if ((curY - y) * (nextX - curX) === (nextY - curY) * (curX - x)) {
-          return i + 1
-        }
-      }
-      // 如果未找到，返回-1
-      return -1
-    }
+    //     // 如果为最后一个点，则返回0
+    //     if (x === lastX && y === lastY) return paths.length - 1
+    //     // 三点共线，判断point是否在当前两点线段中
+    //     if ((curY - y) * (nextX - curX) === (nextY - curY) * (curX - x)) {
+    //       return i + 1
+    //     }
+    //   }
+    //   // 如果未找到，返回-1
+    //   return -1
+    // }
 
     // 获取经过的path前后索引
-    const getPathRange = ({ path, current: { head, tail } }) => {
-      const start = getNextTurningPointIndex(tail, path)
-      const end = getNextTurningPointIndex(head, path)
-      return [ start, end - 1 ]
-    }
+    // const getPathRange = ({ paths, head, tail }) => {
+    //   const start = getNextTurningPointIndex(tail, paths)
+    //   const end = getNextTurningPointIndex(head, paths)
+    //   return [ start, end - 1 ]
+    // }
 
     // 创建激光
     const createLasers = () => {
       const lasers = []
-      options.forEach(({ start, end, path, offset, length }) => {
+      options.forEach(({ start, end, paths, offset, length, appearLength }) => {
+        const _start = { x: start.x * gridSize, y: start.y * gridSize, through: 0 }
         const temp = {
           offset,
           length,
-          start: { ...start },
-          end: { ...end },
-          path: makePath([ start, ...path, end ])
+          paths: makePath([ start, ...paths, end ])
         }
-        temp['current'] = {
-          tail: { x: start.x * gridSize, y: start.y * gridSize, index: 0 },
-          head: getNextPoint({x: start.x * gridSize, y: start.y * gridSize, index: 0}, length * gridSize, temp.path)
-        }
+        // through 经过的最后一个path（索引）
+        temp['tail'] = { ..._start }
+        temp['head'] = getNextPoint(_start, appearLength * gridSize, temp.paths)
         lasers.push(temp)
       })
       console.log(lasers)
@@ -172,45 +177,50 @@
     }
 
     // 渲染单个激光
-    const renderLaser = ({ path, current: { head, tail } }) => {
+    const renderLaser = ({ paths, head, tail }) => {
       const { offsetX, offsetY } = canvas
+      const range = [ tail.through + 1, head.through ]
       ctx.strokeStyle = 'red'
       ctx.beginPath()
       ctx.moveTo(tail.x, tail.y)
-      const range = [ tail.index + 1, head.index ]
-      // const range = getPathRange({ path, current: { tail, head } })
-      // console.log(range)
+
+      // 渲染中间点
       if (range[0] || range[1] || range[0] !== range[1]) {
         for (let i = range[0]; i <= range[1]; i++) {
-          ctx.lineTo(path[i].x * gridSize, path[i].y * gridSize)
+          ctx.lineTo(paths[i].x * gridSize, paths[i].y * gridSize)
         }
       }
+
       ctx.lineTo(head.x, head.y)
       ctx.stroke()
     }
 
-    // 渲染激光
-    const renderLasers = lasers => {
+    // 渲染
+    const render = lasers => {
       renderBg()
       renderGrid()
+      renderLasers(lasers)
+      af = requestAnimationFrame(() => { render(lasers) })
+    }
+
+    // 渲染激光
+    const renderLasers = lasers => {
       lasers.forEach(item => {
         renderLaser(item)
         updateLaser(item)
       })
-      af = requestAnimationFrame(() => { renderLasers(lasers) })
     }
 
     // 根据坐标移动距离，定位轨迹中的位置
     const getNextPoint = (point, offset, paths) => {
       const { x: lastX = x * gridSize, y: lastY = y * gridSize } = paths[paths.length - 1]
-      if (point.x === lastX && point.y === lastY && point.index === paths.length - 1) return { ...point }
+      if (point.x === lastX && point.y === lastY && point.through === paths.length - 1) return { ...point }
       // debugger
       let count = offset
       // 下一个转折点
       // let next = getNextTurningPointIndex(point, paths)
-      let next = point.index + 1
+      let next = point.through + 1
       if (!paths[next]) return { ...point }
-      // console.log({next})
       // 当前出发点
       let beginPoint = { ...point }
       // 下一个转折点坐标
@@ -227,48 +237,46 @@
             beginPoint = { ...turningPoint }
             turningPoint = { x: paths[next].x * gridSize, y: paths[next].y * gridSize }
           } else {
-            return { ...beginPoint, index: next - 1 }
+            return { ...beginPoint, through: next - 1 }
           }
         }
         // 小于offset
         if (count < 0) {
           const a = angle(beginPoint, turningPoint)
           const _count = count + distance
-          if (a === 0) return { x: beginPoint.x += _count, y: beginPoint.y, index: next - 1 }
-          if (a === 90) return { x: beginPoint.x, y: beginPoint.y += _count, index: next - 1 }
-          if (a === 180) return { x: beginPoint.x -= _count, y: beginPoint.y, index: next - 1 }
-          if (a === 270) return { x: beginPoint.x, y: beginPoint.y -= _count, index: next - 1 }
+          if (a === 0) return { x: beginPoint.x += _count, y: beginPoint.y, through: next - 1 }
+          if (a === 90) return { x: beginPoint.x, y: beginPoint.y += _count, through: next - 1 }
+          if (a === 180) return { x: beginPoint.x -= _count, y: beginPoint.y, through: next - 1 }
+          if (a === 270) return { x: beginPoint.x, y: beginPoint.y -= _count, through: next - 1 }
         }
         // 等于offset
         if (count === 0) {
-          return { ...turningPoint, index: next - 1 }
+          return { ...turningPoint, through: next - 1 }
         }
       }
     }
 
     // 更新激光
     const updateLaser = laser => {
-      const { offset, current: { head, tail }, path } = laser
-      const { x: lastX = x * gridSize, y: lastY = y * gridSize } = path[path.length - 1]
+      const { offset, head, tail, paths } = laser
+      const { x: lastX = x * gridSize, y: lastY = y * gridSize } = paths[paths.length - 1]
 
       // 如果当前坐标为最后一点
-      if (head.index === tail.index && tail.index === path.length - 1) {
-        console.log('当前运动完毕')
-        cancelAnimationFrame(af)
-        return
-        // init()
+      if (head.through === tail.through && tail.through === paths.length - 1) {
+        return console.log('当前运动完毕')
       }
 
-      laser.current.head = { ...getNextPoint(head, offset, path) }
-      laser.current.tail = { ...getNextPoint(tail, offset, path) }
+      laser.head = { ...getNextPoint(head, offset, paths) }
+      laser.tail = { ...getNextPoint(tail, offset, paths) }
     }
 
     const init = () => {
       cancelAnimationFrame(af)
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      // renderGrid()
-      renderLasers(createLasers())
+      render(createLasers())
+
+      setTimeout(() => { cancelAnimationFrame(af) }, 6 * 1000)
     };
     window.onresize = init
     init()
