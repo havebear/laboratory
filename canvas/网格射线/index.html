@@ -180,7 +180,7 @@
       const range = [ tail.index + 1, head.index ]
       // const range = getPathRange({ path, current: { tail, head } })
       // console.log(range)
-      if (range[0] || range[1]) {
+      if (range[0] || range[1] || range[0] !== range[1]) {
         for (let i = range[0]; i <= range[1]; i++) {
           ctx.lineTo(path[i].x * gridSize, path[i].y * gridSize)
         }
@@ -203,13 +203,14 @@
     // 根据坐标移动距离，定位轨迹中的位置
     const getNextPoint = (point, offset, paths) => {
       const { x: lastX = x * gridSize, y: lastY = y * gridSize } = paths[paths.length - 1]
-      if (point.x === lastX && point.y === lastY && point.index !== paths.length - 1) return { ...point }
+      if (point.x === lastX && point.y === lastY && point.index === paths.length - 1) return { ...point }
       // debugger
       let count = offset
       // 下一个转折点
       // let next = getNextTurningPointIndex(point, paths)
       let next = point.index + 1
-      console.log({next})
+      if (!paths[next]) return { ...point }
+      // console.log({next})
       // 当前出发点
       let beginPoint = { ...point }
       // 下一个转折点坐标
@@ -240,7 +241,6 @@
         }
         // 等于offset
         if (count === 0) {
-          console.log(beginPoint, turningPoint, point)
           return { ...turningPoint, index: next - 1 }
         }
       }
@@ -251,36 +251,16 @@
       const { offset, current: { head, tail }, path } = laser
       const { x: lastX = x * gridSize, y: lastY = y * gridSize } = path[path.length - 1]
 
-      console.log(JSON.stringify(laser.current))
-
       // 如果当前坐标为最后一点
-      if (head.x === lastX && head.y === lastY && tail.x === lastX && tail.y === lastY) {
+      if (head.index === tail.index && tail.index === path.length - 1) {
         console.log('当前运动完毕')
-        return cancelAnimationFrame(af)
+        cancelAnimationFrame(af)
+        return
         // init()
       }
 
-      // 下一个转折点
-      // const headNextTurningPoint = path[getNextTurningPointIndex(head, path)]
-      // const tailNextTurningPoint = path[getNextTurningPointIndex(tail, path)]
-
-      // if (!headNextTurningPoint && !tailNextTurningPoint) {
-      //   return cancelAnimationFrame(af)
-      // }
-
-      // if (headNextTurningPoint === -1 && tailNextTurningPoint === -1) {
-      //   return cancelAnimationFrame(af)
-      // }
-
       laser.current.head = { ...getNextPoint(head, offset, path) }
       laser.current.tail = { ...getNextPoint(tail, offset, path) }
-
-      // if (lastX !== head.x && lastY !== head.y) {
-      //   laser.current.head = { ...getNextPoint(head, offset, path) }
-      // }
-      // if (lastX !== tail.x && lastY !== tail.y) {
-      //   laser.current.tail = { ...getNextPoint(tail, offset, path) }
-      // }
     }
 
     const init = () => {
