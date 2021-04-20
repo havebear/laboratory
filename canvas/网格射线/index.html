@@ -162,8 +162,8 @@
           path: makePath([ start, ...path, end ])
         }
         temp['current'] = {
-          tail: { x: start.x * gridSize, y: start.y * gridSize },
-          head: getNextPoint({x: start.x * gridSize, y: start.y * gridSize}, length * gridSize, temp.path)
+          tail: { x: start.x * gridSize, y: start.y * gridSize, index: 0 },
+          head: getNextPoint({x: start.x * gridSize, y: start.y * gridSize, index: 0}, length * gridSize, temp.path)
         }
         lasers.push(temp)
       })
@@ -177,7 +177,8 @@
       ctx.strokeStyle = 'red'
       ctx.beginPath()
       ctx.moveTo(tail.x, tail.y)
-      const range = getPathRange({ path, current: { tail, head } })
+      const range = [ tail.index + 1, head.index ]
+      // const range = getPathRange({ path, current: { tail, head } })
       // console.log(range)
       if (range[0] || range[1]) {
         for (let i = range[0]; i <= range[1]; i++) {
@@ -202,11 +203,13 @@
     // 根据坐标移动距离，定位轨迹中的位置
     const getNextPoint = (point, offset, paths) => {
       const { x: lastX = x * gridSize, y: lastY = y * gridSize } = paths[paths.length - 1]
-      if (point.x === lastX && point.y === lastY) return { ...point }
+      if (point.x === lastX && point.y === lastY && point.index !== paths.length - 1) return { ...point }
       // debugger
       let count = offset
       // 下一个转折点
-      let next = getNextTurningPointIndex(point, paths)
+      // let next = getNextTurningPointIndex(point, paths)
+      let next = point.index + 1
+      console.log({next})
       // 当前出发点
       let beginPoint = { ...point }
       // 下一个转折点坐标
@@ -223,22 +226,22 @@
             beginPoint = { ...turningPoint }
             turningPoint = { x: paths[next].x * gridSize, y: paths[next].y * gridSize }
           } else {
-            return { ...beginPoint }
+            return { ...beginPoint, index: next - 1 }
           }
         }
         // 小于offset
         if (count < 0) {
           const a = angle(beginPoint, turningPoint)
           const _count = count + distance
-          if (a === 0) return { x: beginPoint.x += _count, y: beginPoint.y }
-          if (a === 90) return { x: beginPoint.x, y: beginPoint.y += _count }
-          if (a === 180) return { x: beginPoint.x -= _count, y: beginPoint.y }
-          if (a === 270) return { x: beginPoint.x, y: beginPoint.y -= _count }
+          if (a === 0) return { x: beginPoint.x += _count, y: beginPoint.y, index: next - 1 }
+          if (a === 90) return { x: beginPoint.x, y: beginPoint.y += _count, index: next - 1 }
+          if (a === 180) return { x: beginPoint.x -= _count, y: beginPoint.y, index: next - 1 }
+          if (a === 270) return { x: beginPoint.x, y: beginPoint.y -= _count, index: next - 1 }
         }
         // 等于offset
         if (count === 0) {
-          console.log(turningPoint)
-          return { ...turningPoint }
+          console.log(beginPoint, turningPoint, point)
+          return { ...turningPoint, index: next - 1 }
         }
       }
     }
@@ -258,23 +261,26 @@
       }
 
       // 下一个转折点
-      const headNextTurningPoint = path[getNextTurningPointIndex(head, path)]
-      const tailNextTurningPoint = path[getNextTurningPointIndex(tail, path)]
+      // const headNextTurningPoint = path[getNextTurningPointIndex(head, path)]
+      // const tailNextTurningPoint = path[getNextTurningPointIndex(tail, path)]
 
-      if (!headNextTurningPoint && !tailNextTurningPoint) {
-        return cancelAnimationFrame(af)
-      }
+      // if (!headNextTurningPoint && !tailNextTurningPoint) {
+      //   return cancelAnimationFrame(af)
+      // }
 
-      if (headNextTurningPoint === -1 && tailNextTurningPoint === -1) {
-        return cancelAnimationFrame(af)
-      }
+      // if (headNextTurningPoint === -1 && tailNextTurningPoint === -1) {
+      //   return cancelAnimationFrame(af)
+      // }
 
-      if (lastX !== head.x && lastY !== head.y) {
-        laser.current.head = { ...getNextPoint(head, offset, path) }
-      }
-      if (lastX !== tail.x && lastY !== tail.y) {
-        laser.current.tail = { ...getNextPoint(tail, offset, path) }
-      }
+      laser.current.head = { ...getNextPoint(head, offset, path) }
+      laser.current.tail = { ...getNextPoint(tail, offset, path) }
+
+      // if (lastX !== head.x && lastY !== head.y) {
+      //   laser.current.head = { ...getNextPoint(head, offset, path) }
+      // }
+      // if (lastX !== tail.x && lastY !== tail.y) {
+      //   laser.current.tail = { ...getNextPoint(tail, offset, path) }
+      // }
     }
 
     const init = () => {
