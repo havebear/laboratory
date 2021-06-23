@@ -259,7 +259,7 @@
     // 更新激光
     const updateLaser = laser => {
       const { offset, head, tail, paths } = laser
-      const { x: lastX = x * gridSize, y: lastY = y * gridSize } = paths[paths.length - 1]
+      // const { x: lastX = x * gridSize, y: lastY = y * gridSize } = paths[paths.length - 1]
 
       // 如果当前坐标为最后一点
       if (head.through === tail.through && tail.through === paths.length - 1) {
