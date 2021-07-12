@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平行四边形</title>
+  <style>
+    .demo {
+      display: inline-block;
+      margin-top: 100px;
+      width:100px;
+      height:40px;
+      position:relative;
+      text-align: center;
+      line-height:40px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .demo::before{
+      content: "";
+      position: absolute;
+      top:0;
+      left: 0;
+      right:0;
+      bottom: 0;
+      background: #ffc727;
+      transform: skew(-45deg);
+      z-index: -1;
+      /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
+    }
+    .demo.active, demo:hover {
+      color: #ffc727!;
+    }
+    .demo.active::before, demo:hover::before {
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo">Hello</div>
+  <div class="demo">Hello</div>
+  <div class="demo">Hello</div>
+  <div class="demo active">Hello</div>
+  <div class="demo">Hello</div>
+  <div class="demo">Hello</div>
+</body>
+</html>
