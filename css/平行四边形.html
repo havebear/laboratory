@@ -16,6 +16,7 @@
       line-height:40px;
       color: #fff;
       cursor: pointer;
+      transition: all .3s;
     }
     .demo::before{
       content: "";
@@ -27,12 +28,13 @@
       background: #ffc727;
       transform: skew(-45deg);
       z-index: -1;
+      transition: all .3s;
       /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
     }
-    .demo.active, demo:hover {
-      color: #ffc727!;
+    .demo.active, .demo:hover {
+      color: #ffc727;
     }
-    .demo.active::before, demo:hover::before {
+    .demo.active::before, .demo:hover::before {
       background: white;
     }
   </style>
