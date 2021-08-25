@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>连接信号动画</title>
+    <style>
+      .loading1 {
+        width: 50px;
+        height: 40px;
+        margin: 60px auto;
+        text-align: center;
+      }
+      .loading1 span {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        display: inline-block;
+        background: #67cf22;
+        animation: mymove 1.2s infinite ease-in-out;
+        -webkit-animation: mymove 1.2s infinite ease-in-out;
+        border-radius: 10px;
+        /*  
+                mymove代表动画名字
+                1.2s代表执行时间
+                infinite表示一直循环执行
+                ease-in-out表示先慢后快的缓动
+            */
+      }
+      .loading1 > span:nth-child(2) {
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
+      }
+      .loading1 > span:nth-child(3) {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+      }
+      .loading1 > span:nth-child(4) {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+      }
+      .loading1 > span:nth-child(5) {
+        -webkit-animation-delay: -0.7s;
+        animation-delay: -0.7s;
+      }
+      @keyframes mymove {
+        0% {
+          opacity: 0.2;
+        }
+        25% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+        75% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 0.2;
+        }
+        /* 0% {
+          transform: scaleY(0.4);
+        }
+        25% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(0.4);
+        }
+        75% {
+          transform: scaleY(0.4);
+        }
+        100% {
+          transform: scaleY(0.4);
+        } */
+      }
+      /* @-webkit-keyframes mymove {
+        0% {
+          transform: scaleY(0.4);
+        }
+        25% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(0.4);
+        }
+        75% {
+          transform: scaleY(0.4);
+        }
+        100% {
+          transform: scaleY(0.4);
+        }
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="loading1">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </body>
+</html>
