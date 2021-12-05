@@ -1,0 +1,80 @@
+<!--
+ * @Author: 616749285@qq.com
+ * @Date: 2021-12-05 13:44:21
+ * @LastEditors: 616749285@qq.com
+ * @LastEditTime: 2021-12-05 13:59:44
+ * @Description:  
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>keep-alive下的activated和deactivated</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click="target = !target">target</button>
+    <keep-alive includes="child1,child2">
+      <child1 v-if="target"></child1>
+      <child2 v-else />
+    </keep-alive>
+  </div>
+  <script>
+    const Child1 = {
+      name: 'Child1',
+      data () {
+        return {
+          count: 0
+        }
+      },
+      mounted () {
+        console.log('1挂载完')
+      },
+      updated () {
+        console.log('页面数据更新了')
+      },
+      activated () {
+        console.log('激活1')
+      },
+      deactivated () {
+        console.log('离开1')
+      },
+      template: `<div @click="count++">Child1{{ count }}</div>`
+    }
+    const Child2 = {
+      name: 'Child2',
+      mounted () {
+        console.log('2挂载完')
+      },
+      activated () {
+        console.log('激活2')
+      },
+      deactivated () {
+        console.log('离开2')
+      },
+      template: `<div>Child2</div>`
+    }
+    const vm = new Vue({
+      el: '#app',
+      components: {
+        Child1,
+        Child2
+      },
+      data () {
+        return {
+          target: true
+        }
+      },
+      mounted () {
+        console.log('挂载完毕')
+      },
+      activated () {
+        console.log('激活app')
+      }
+    })
+  </script>
+</body>
+</html>
