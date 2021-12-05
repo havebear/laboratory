@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>A</div>
+  <span>B</span>
+  
+  <script>
+    let nodeNames = [ ...new Set([...document.querySelectorAll('*')].map(item => item.nodeName)) ]
+    // let nodeNames = Array.from(new Set(Array.from(document.querySelectorAll('*')).map(item => item.nodeName)))
+    console.log(nodeNames.length)
+  </script>
+</body>
+</html>
