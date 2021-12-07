@@ -5,8 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MVVM</title>
+  <script src="./src/vue.js"></script>
+  <script src="./src/vnode.js"></script>
+  <script src="./src/init-render.js"></script>
+  <script src="./src/compiler.js"></script>
 </head>
 <body>
-  
+  <div id="app">
+    <div>TEST</div>
+    <span>{{ count }}</span>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        count: 234234
+      }
+    })
+  </script>
 </body>
 </html>
