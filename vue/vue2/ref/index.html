@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ref</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- <button @click="target = !target">target</button> -->
+    <child1 v-for="item in count" :key="item" ref="com">{{ item }}</child1>
+    <!-- <child1 ref="com1"></child1>
+    <child1 ref="com1"></child1>
+    <child2 ref="com1"></child2>
+    <div ref="com2">Parent
+      <span ref="com2">span</span>
+    </div>
+    <h2 ref="com2">H2</h1> -->
+  </div>
+  <script>
+    const Child1 = {
+      name: 'Child1',
+      data () {
+        return {
+          count: 0
+        }
+      },
+      template: `<div @click="count++">Child1{{ count }}</div>`
+    }
+    const Child2 = {
+      name: 'Child2',
+      data () {
+        return {
+          count: 0
+        }
+      },
+      template: `<div @click="count = count * 2">Child2{{ count }}</div>`
+    }
+    const vm = new Vue({
+      el: '#app',
+      components: {
+        Child1,
+        Child2
+      },
+      data () {
+        return {
+          count: 0
+        }
+      },
+      mounted () {
+        setTimeout(() => {
+          this.count = 5
+          this.$nextTick(() => {
+            console.log(this)
+            console.log(this.$refs.com)
+          })
+        }, 1000);
+        // this.$refs.com.forEach(item => console.log(item))
+      }
+    })
+  </script>
+</body>
+</html>
