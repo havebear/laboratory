@@ -32,12 +32,20 @@ function defineReactive (target, key, value, enumerable) {
   // 当前作用域闭包了一个dep
   const dep = new Dep()
 
+  // 劫持属性时，对属性进行响应式化（对象下的对象数组属性）
+  const childOb = observer(value)
+
   Object.defineProperty(target, key, {
     configurable: true,
     enumerable,
     get () {
       // 收集依赖
       dep.depend()
+      // 如果当前value对象/数组，且已被响应式处理
+      if (childOb) {
+        // 收集依赖该属性（对象）的watcher
+        childOb.dep.depend()
+      }
       return value
     },
     set (newVal) {
@@ -57,15 +65,25 @@ function defineReactive (target, key, value, enumerable) {
 }
 
 /** 把对象变成响应式 */
-function observer (obj) {
-  // 如果为数组
-  if (Array.isArray(obj)) {
-    obj.forEach(item => observer(item))
-  } else {
-    Object.keys(obj).forEach(key => {
-      defineReactive(obj, key, obj[key], true)
-    })
+function observer (value) {
+  
+  // 如果不为对象 或 为vnode
+  if (!(value !== null && typeof value === 'object') || value instanceof VNode) {
+    return
   }
+
+  let ob
+
+  // 是否已经被响应式，是则不再重复响应式
+  if (value.hasOwnProperty('__ob__') && value.__ob__ instanceof Observer) {
+    ob = value.__ob__
+  }
+  
+  // 数组或者对象
+  else if (Array.isArray(value) || isPlainObject(value)) {
+    ob = new Observer(value)
+  }
+  return ob
 }
 
 /** 初始化数据，将数据变成响应式 */

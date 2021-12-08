@@ -7,6 +7,7 @@ Vue.prototype.mount = function () {
 /** 挂载组件 */
 Vue.prototype.mountComponent = function () {
   const mount = () => {
+    console.log('触发')
     this.update(this.render())
   }
 
@@ -17,7 +18,7 @@ Vue.prototype.mountComponent = function () {
 Vue.prototype.createRenderFn = function () {
   const vnode = getVNode(this._template)
 
-  console.log(vnode)
+  // console.log(vnode)
 
   return function render () {
     return combine(vnode, this._data)

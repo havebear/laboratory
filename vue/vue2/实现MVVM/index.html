@@ -2,7 +2,7 @@
  * @Author: 616749285@qq.com
  * @Date: 2021-12-08 09:57:03
  * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2021-12-08 14:52:15
+ * @LastEditTime: 2021-12-08 18:09:53
  * @Description:  
 -->
 <!DOCTYPE html>
@@ -12,8 +12,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MVVM</title>
+  <script src="./src/util.js"></script>
   <script src="./src/vue.js"></script>
   <script src="./src/vnode.js"></script>
+  <script src="./src/observer.js"></script>
   <script src="./src/dep.js"></script>
   <script src="./src/watcher.js"></script>
   <script src="./src/init-data.js"></script>
@@ -24,12 +26,15 @@
   <div id="app">
     <div>TEST</div>
     <span>{{ count }}</span>
+    <p>{{ obj.age }}</p>
   </div>
   <script>
     const vm = new Vue({
       el: '#app',
       data: {
-        count: 234234
+        count: 234234,
+        arr: [],
+        obj: { age: 1 }
       }
     })
   </script>
