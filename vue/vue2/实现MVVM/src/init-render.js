@@ -1,11 +1,3 @@
-/*
- * @Author: 616749285@qq.com
- * @Date: 2021-12-07 22:12:15
- * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2021-12-07 22:54:24
- * @Description:  vue render相关
- */
-
 /** 挂载 */
 Vue.prototype.mount = function () {
   this.render = this.createRenderFn()
@@ -14,7 +6,11 @@ Vue.prototype.mount = function () {
 
 /** 挂载组件 */
 Vue.prototype.mountComponent = function () {
-  this.update(this.render())
+  const mount = () => {
+    this.update(this.render())
+  }
+
+  new Watcher(this, mount)
 }
 
 /** 生成render函数，目的是缓存抽象语法树 */

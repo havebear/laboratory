@@ -1,11 +1,3 @@
-/*
- * @Author: 616749285@qq.com
- * @Date: 2021-12-07 17:07:51
- * @LastEditors: 616749285@qq.com
- * @LastEditTime: 2021-12-07 17:22:01
- * @Description:  VNode类
- */
-
 class VNode {
   /**
    * @param {String} tag 标签名

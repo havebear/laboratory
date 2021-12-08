@@ -5,5 +5,10 @@ function Vue (options = {}) {
   this._el = options.el
   this._parent = elm.parentNode
 
+  /** 初始化状态 */
+  // this.initComputed()
+  this.initData()
+
+  /** 组件挂载 - 依赖收集 */
   this.mount()
 }
