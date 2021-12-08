@@ -10,7 +10,8 @@
 <body>
   <div id="app">
     {{ obj }}
-    <button @click="obj.test = 2">添加一个属性</button>
+    <button @click="obj.test = 2">添加test属性</button>
+    <button @click="delete obj.a">删除a属性</button>
   </div>
   <script>
     const vm = new Vue({
