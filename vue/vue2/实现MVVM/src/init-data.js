@@ -22,7 +22,7 @@ function proxy (target, prop, key) {
  * @param {Boolean} enumerable 可枚举
  */
 function defineReactive (target, key, value, enumerable) {
-  
+
   // 如果value是一个对象或者数组，则将该对象响应式
   if (typeof value === 'object' && value !== null) {
     observer(value)
@@ -34,6 +34,8 @@ function defineReactive (target, key, value, enumerable) {
 
   // 劫持属性时，对属性进行响应式化（对象下的对象数组属性）
   const childOb = observer(value)
+
+  console.log(childOb)
 
   Object.defineProperty(target, key, {
     configurable: true,

@@ -19,8 +19,12 @@ ARRAY_METHODS.forEach(method => {
       observer(arguments[i])
     }
     // ([...arguments]).forEach(arg => observer(arg))
+    // 调用响应式对象ob的dep属性的notify，触发更新
+    // console.log(this.__ob__.dep)
+    this.__ob__.dep.notify()
     // 执行原型上的方法，并返回结果
     return Array.prototype[method].apply(this, arguments)
+
   }
 })
 
@@ -42,7 +46,7 @@ class Observer {
     }
     // 对象
     else {
-      Object.keys(value).forEach(key => defineReactive(value, key))
+      Object.keys(value).forEach(key => defineReactive(value, key, value[key], true))
     }
   }
 
