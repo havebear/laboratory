@@ -1,7 +1,7 @@
 ﻿/*
- * @Author: 616749285@qq.com
+ * @Author: BGG@qq.com
  * @Date: 2020-09-11 16:19:55
- * @LastEditors: 616749285@qq.com
+ * @LastEditors: BGG@qq.com
  * @LastEditTime: 2020-09-16 15:19:50
  * @Description:  平台变量
  */
