@@ -10,6 +10,7 @@
 <body>
   <div id="app">
     {{ obj }}
+    {{ reg }}
     <button @click="obj.test = 2">添加test属性</button>
     <button @click="delete obj.a">删除a属性</button>
   </div>
@@ -18,7 +19,14 @@
       el: '#app',
       data () {
         return {
-          obj: { a: { b: 1 } }
+          obj: { a: { b: 1 } },
+          reg: /runoob/i,
+          date: new Date()
+        }
+      },
+      methods: {
+        test () {
+          console.log(123)
         }
       }
     })

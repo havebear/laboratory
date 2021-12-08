@@ -99,5 +99,10 @@ function getValueByPath (obj, path) {
     res = res[prop]
   }
 
+  // 如果为正则数据
+  if (isRegExp(res)) return res.toString()
+  // 如果为对象类型数据
+  if (typeof res === 'object') return JSON.stringify(res)
+
   return res
 }

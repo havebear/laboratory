@@ -8,6 +8,8 @@ const genIsTypeFn = type => {
 
 const isPlainObject = genIsTypeFn('Object')
 
+const isRegExp = genIsTypeFn('RegExp')
+
 /**
  * 定义对象属性
  * @param {Object} target 目标对象
