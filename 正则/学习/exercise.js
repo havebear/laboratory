@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-11 20:03:27
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-11 21:46:14
+ * @LastEditTime: 2021-12-12 22:32:39
  * @Description:  练习
  */
 
@@ -39,5 +39,10 @@ console.log(str.match(regex))
 regex = /^[0-9]+D$/
 console.log('验证字符串是否数字开头、D结尾')
 console.log(!!str.match(regex))
+
+/** 匹配字符串中的数字开头、D结尾的字符串 */
+regex = /[0-9]+D/g
+console.log('匹配字符串中的数字开头、D结尾的所有字符串')
+console.log(str.match(regex))
 
 
