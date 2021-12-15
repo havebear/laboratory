@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-11 20:03:27
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-15 17:58:18
+ * @LastEditTime: 2021-12-15 18:12:39
  * @Description:  练习
  */
 
@@ -188,5 +188,11 @@ console.log(str.match(regex))
 regex = /(?<![\d+])abc/g
 str = 'abc123abc123abc'
 console.log('匹配前面不是数字的“abc”')
+console.log(str.match(regex))
+
+/** 匹配字符串中重复出现的单词（不区分大小写） */
+regex = /\b([a-z]+) \1\b/ig
+str = 'Is is const of Of of gasoline going up uP a a'
+console.log('匹配字符串中重复出现的单词')
 console.log(str.match(regex))
 
