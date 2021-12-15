@@ -247,8 +247,6 @@
 ### \B
 
 - 非单词边界匹配
- 
-## String.prototype.match()
 
 ### 注意
 
@@ -278,6 +276,8 @@
 
 - (?<!exp2)exp1
 - 表示查找前面不是 exp2 的 exp1
+
+## String.prototype.match()
 
 ### 返回值
 
