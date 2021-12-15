@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-11 20:03:27
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-14 22:44:58
+ * @LastEditTime: 2021-12-15 17:58:18
  * @Description:  练习
  */
 
@@ -122,4 +122,71 @@ regex = /^123[\S]+123$/
 str = '123sdkfjdasjf123'
 console.log('匹配字符串是否以123开头，123结尾')
 console.log(!!str.match(regex))
+
+/** 匹配字符串中所有的ab，abab，ababab…… */
+regex = /[ab]+/g
+str = 'abcababab123abab=-abaaaabbb'
+console.log('匹配字符串中所有的ab，abab，ababab……')
+console.log(str.match(regex))
+
+/** 匹配字符串中首位非0数字 */
+regex = /[1-9][0-9]*/g
+// regex = /[1-9][0-9]+/g
+// regex = /[1-9][0-9]?/g
+str = 'a1df123,cx0123nsd.01123=-12#$%^&211'
+console.log('匹配字符串中首位非0数字')
+console.log(str.match(regex))
+
+/** 匹配标签 - 贪婪 */
+regex = /<.*>/g
+str = '<div><span>TEST</span></div>'
+console.log('匹配标签 - 贪婪')
+console.log(str.match(regex))
+
+/** 匹配标签 - 非贪婪 */
+regex = /<.*?>/g
+str = '<div><span>TEST<a>Href</a></span></div>'
+console.log('匹配标签（包含闭合标签） - 非贪婪')
+console.log(str.match(regex))
+
+/** 匹配标签 - 非贪婪 */
+regex = /<\w+?>/g
+str = '<div><span>TEST<a>Href</a></span></div>'
+console.log('匹配标签（不包含闭合标签） - 非贪婪')
+console.log(str.match(regex))
+
+/** 匹配标签中内容 */
+// regex = /<.*>/g
+
+/** 匹配数字前面的“abc” */
+/** exp1(?=exp2) */
+/** 表示查找 exp2 前面的 exp1 */
+regex = /abc(?=[0-9]+)/g
+str = '123abc123abc'
+console.log('匹配数字前面的“abc”')
+console.log(str.match(regex))
+
+/** 匹配数字后面的“abc” */
+/** (?<=exp2)exp1 */
+/** 表示查找 exp2 后面的exp1 */
+regex = /(?<=[\d+])abc/g
+str = '123abc123abc'
+console.log('匹配数字后面的“abc”')
+console.log(str.match(regex))
+
+/** 匹配后面不是数字的“abc” */
+/** exp1(?!exp2) */
+/** 表示查找后面不是 exp2 的 exp1 */
+regex = /abc(?![\d+])/g
+str = '123abc123abc'
+console.log('匹配后面不是数字的“abc”')
+console.log(str.match(regex))
+
+/** 匹配前面不是数字的“abc” */
+/** exp1(?!exp2) */
+/** 表示查找前面不是 exp2 的 exp1 */
+regex = /(?<![\d+])abc/g
+str = 'abc123abc123abc'
+console.log('匹配前面不是数字的“abc”')
+console.log(str.match(regex))
 
