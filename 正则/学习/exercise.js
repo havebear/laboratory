@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-11 20:03:27
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-15 18:12:39
+ * @LastEditTime: 2021-12-16 11:02:01
  * @Description:  练习
  */
 
@@ -194,5 +194,34 @@ console.log(str.match(regex))
 regex = /\b([a-z]+) \1\b/ig
 str = 'Is is const of Of of gasoline going up uP a a'
 console.log('匹配字符串中重复出现的单词')
+console.log(str.match(regex))
+
+/** 分解url为协议（ftp、http） */
+/** \w 匹配字母、数字、下划线，等价于[A-Za-z0-9] */
+/** \/\/ 为"//" 的转义 */
+/** -  \d 匹配一个数字字符，等价于 [0-9] */
+/** -  \D 匹配非数字字符，等价于 [^0-9] */
+/**
+ * 圆括号代表一个子表达式，下面的正则返回一个数组，数组包含
+ * - 第一个括号子表达式包含 https
+ * - 第二个括号子表达式包含 www.acfun.cn
+ * - 第三个括号子表达式包含 :80
+ * - 第四个括号子表达式包含 /test
+ */
+/**
+ * [
+  'https://www.acfun.cn:80/test',
+  'https',
+  'www.acfun.cn',
+  ':80',
+  '/test',
+  index: 0,
+  input: 'https://www.acfun.cn:80/test',
+  groups: undefined
+]
+ */
+str = 'https://www.acfun.cn:80/test'
+regex = /(\w+):\/\/([^/:]+)(:\d*)?([^# ]*)/
+console.log('分解url为协议（ftp、http）')
 console.log(str.match(regex))
 
