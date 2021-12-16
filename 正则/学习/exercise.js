@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-11 20:03:27
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-16 11:02:01
+ * @LastEditTime: 2021-12-16 11:16:13
  * @Description:  练习
  */
 
@@ -223,5 +223,27 @@ console.log(str.match(regex))
 str = 'https://www.acfun.cn:80/test'
 regex = /(\w+):\/\/([^/:]+)(:\d*)?([^# ]*)/
 console.log('分解url为协议（ftp、http）')
+console.log(str.match(regex))
+
+/** 匹配双引号之间的空格 */
+/**
+ * \s 匹配所有空白符，包括换行
+ * \S 匹配非空白符，不包括换行
+ *
+ * ?<= 非捕获源
+ * - (?<=exp2)exp1
+ * - 表示查找 exp2 后面的exp1
+ * 
+ * ?= 非捕获源
+ * - exp1(?=exp2)
+ * - 表示查找 exp2 前面的 exp1 
+ * 
+ * . 
+ * - 匹配除换行符（\n、\r）之外的任何单个字符，等价于[^\n\r]
+ */
+
+str = 'a sd122" 123 123 "'
+regex = /(?<=".*[^"])\s+(?=.*?")/g
+console.log('匹配双引号之间的空格')
 console.log(str.match(regex))
 
