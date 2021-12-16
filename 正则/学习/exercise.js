@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-11 20:03:27
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-16 11:16:13
+ * @LastEditTime: 2021-12-16 11:40:01
  * @Description:  练习
  */
 
@@ -242,8 +242,11 @@ console.log(str.match(regex))
  * - 匹配除换行符（\n、\r）之外的任何单个字符，等价于[^\n\r]
  */
 
-str = 'a sd122" 123 123 "'
-regex = /(?<=".*[^"])\s+(?=.*?")/g
+str = 'a sd122" 123 123 " " ""123 "'
+str = 'a asd" 123 1 "'
+// regex = /(?<=".*[^"])\s+(?=.*?")/g
+regex = /(?<=".*)\s+(?=.*?")/g
 console.log('匹配双引号之间的空格')
 console.log(str.match(regex))
+console.log(str.replace(regex, ''))
 
