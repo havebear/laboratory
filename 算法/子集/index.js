@@ -21,7 +21,7 @@ const subset = (arr = []) => {
   // 结果
   const result = []
   // 子集总数
-  const total = Math.pow(2, length)
+  const total = Math.pow(2, length) - 1
 
   for (let i = 1; i <= total; i++) {
     console.log(i)
