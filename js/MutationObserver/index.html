@@ -10,7 +10,10 @@
   <div class="container"></div>
   <script>
     // 新创建的实例不会关联 DOM 的任何部分
-    const observer = new MutationObserver(() => console.log('dom was mutated'))
+    const observer = new MutationObserver((mutationRecords) => {
+      console.log('dom was mutated')
+      console.log(mutationRecords)
+    })
 
     // 把 observer 与 DOM 关联，需要使用 observer() 方法
     // 观察 document.body 元素的属性变化
@@ -18,6 +21,7 @@
     observer.observe(document.body, { attributes: true })
 
     document.body.className = 'foo'
+    document.body.setAttribute('foo', 'bar')
     // dom was mutated
   </script>
 </body>
