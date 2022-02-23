@@ -1,0 +1,27 @@
+<!--
+ * @Author: BGG
+ * @Date: 2022-02-18 15:29:49
+ * @LastEditors: BGG
+ * @LastEditTime: 2022-02-22 10:18:54
+ * @Description:  
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test">
+    <span>Click</span>
+  </div>
+
+  <script>
+    document.getElementById('test').onclick = function ({ currentTarget, target }) {
+      console.log({ currentTarget, target })
+    }
+  </script>
+</body>
+</html>
