@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字</title>
+  <style>
+    body { margin: 0; }
+    canvas { width: 100%; height: 100% }
+  </style>
+</head>
+<body>
+  <script src="./three.js"></script>
+  <script>
+
+    /** 
+     * 四种方法
+     * 1、DOM + CSS，绝对定位浮动于画板之上。
+     *  最快最简单
+     * 2、将文字绘制到画布中，并将其用作Texture（纹理）。
+     *  如果你希望在three.js的场景中的平面上轻松地绘制文本，请使用此方法。
+     * 3、在你所喜欢的3D软件里创建模型，并导出给three.js。
+     *  如果你更喜欢使用3D建模软件来工作并导出模型到three.js，请使用这种方法。
+     * 4、three.js自带的文字几何体。
+     *  如果你更喜欢使用纯three.js来工作，或者创建能够由程序改变的、动态的3D文字，你可以创建一个其几何体为THREE.TextGeometry的实例的网格：
+     *  new THREE.TextGeometry( text, parameters )
+    */
+
+    const { innerWidth, innerHeight } = window
+
+    // 渲染器
+    const renderer = new THREE.WebGLRenderer()
+    renderer.setSize(innerWidth, innerHeight)
+    document.body.appendChild(renderer.domElement)
+
+    // 相机
+    const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 500)
+    camera.position.set(0, 0, 100)
+    camera.lookAt(0, 0, 0)
+
+    // 场景
+    const sence = new THREE.Scene()
+
+    // 接下来定义材质，对于线条来讲，能使用的只有 LineBasicMaterial 或者 LineDashedMaterial
+    const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
+
+    // 需要一个带有一些顶点的 Geometry（几何） 或者 BufferGeometry（缓冲几何）
+    const geometry = new THREE.BufferGeometry()
+    // 方法一
+    // const vertices = new Float32Array([ -10, 0, 0, 0, 10, 0, 10, 0, 0 ])
+    // geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+    // 方法二
+    const vertices = [[ -10, 0, 0 ], [ 0, 10, 0 ], [ 10, 0, 0 ]].map(item => new THREE.Vector3(...item))
+    geometry.setFromPoints(vertices)
+
+    // 现在已经有了能够画两条线的点和一个材质，可将他们组合在一起，形成一条线
+    const line = new THREE.Line(geometry, material)
+
+    // 剩下的事情就是把它添加到场景中，并调用 render（渲染）函数
+    sence.add(line)
+    renderer.render(sence, camera)
+
+  </script>
+</body>
+</html>
