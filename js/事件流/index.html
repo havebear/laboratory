@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件流</title>
+</head>
+<body>
+  <div onclick="console.log('a')">
+    <div onclick="console.log('b')">
+      <div onclick="console.log('c')">Click</div>
+    </div>
+  </div>
+  
+  <script>
+    // const a = document.getElementById('a')
+    // const b = document.getElementById('b')
+    // const c = document.getElementById('c')
+
+    // a.click = () => {
+    //   console.log('a')
+    // }
+
+    // b.click = () => {
+    //   console.log('b')
+    // }
+
+    // c.click = () => {
+    //   console.log('c')
+    // }
+  </script>
+</body>
+</html>

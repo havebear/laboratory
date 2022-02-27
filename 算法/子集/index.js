@@ -2,7 +2,7 @@
  * @Author: BGG
  * @Date: 2021-12-17 13:04:15
  * @LastEditors: BGG
- * @LastEditTime: 2021-12-17 14:45:09
+ * @LastEditTime: 2021-12-17 15:55:08
  * @Description:  
  */
 
@@ -24,7 +24,6 @@ const subset = (arr = []) => {
   const total = Math.pow(2, length) - 1
 
   for (let i = 1; i <= total; i++) {
-    console.log(i)
     result.push(
       i
         .toString(2)

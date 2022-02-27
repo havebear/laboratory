@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MutationObserver</title>
+</head>
+<body>
+  <div class="container"></div>
+  <script>
+    // 新创建的实例不会关联 DOM 的任何部分
+    const observer = new MutationObserver((mutationRecords) => {
+      console.log('dom was mutated')
+      console.log(mutationRecords)
+    })
+
+    // 把 observer 与 DOM 关联，需要使用 observer() 方法
+    // 观察 document.body 元素的属性变化
+    // body 上任何属性变化都会被这个 实例 发现，然后就会异步执行注册的回调函数（微任务）
+    observer.observe(document.body, { attributes: true })
+
+    document.body.className = 'foo'
+    document.body.setAttribute('foo', 'bar')
+    // dom was mutated
+  </script>
+</body>
+</html>
