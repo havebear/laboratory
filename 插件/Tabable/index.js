@@ -13,6 +13,9 @@ class Car {
       calculateRoutes: new AsyncParallelHook(['source', 'target', 'routerList'])
     }
   }
+  setSteep (steep) {
+    this.hooks.accelerate.call(steep)
+  }
 }
 
 const car = new Car()
@@ -25,7 +28,7 @@ car.hooks.accelerate.tap('WarningLampPlugin2', speed => {
   console.log('WarningLampPlugin2' + speed)
 })
 
-car.hooks.accelerate.call(123)
+car.setSteep(123)
 // 'WarningLampPlugin'
 // 'WarningLampPlugin2'
 
