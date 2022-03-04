@@ -1,5 +1,7 @@
 # Tapable
 
+[参考链接](https://blog.csdn.net/mafan121/article/details/113120081)
+
 tapable 是 webpack 内部使用的一个流程管理工具，主要用来串联插件，完善事件流执行。
 
 ## 常用 hooks
