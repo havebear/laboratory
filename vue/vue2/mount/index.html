@@ -21,8 +21,16 @@
     })
 
     const Modal = new Vue({
-      template: `<div>Modal</div>`,
+      data () {
+        return {
+          title: '标题'
+        }
+      },
+      template: `<div>Modal{{ title }}</div>`,
       mounted () {
+        setTimeout(() => {
+          this.title = '变更后的标题'
+        }, 2000)
         // console.log(this.$parent)
       }
     })
