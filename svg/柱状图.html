@@ -1,0 +1,74 @@
+<!--
+ * @Author: BGG
+ * @Date: 2024-12-26 16:34:22
+ * @LastEditors: BGG
+ * @LastEditTime: 2024-12-26 16:34:28
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Bar Chart with Tooltip</title>
+  <style>
+    svg {
+      border: 1px solid gray;
+    }
+
+   .tooltip {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      pointer-events: none;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <svg width="500" height="300"></svg>
+  <div class="tooltip"></div>
+  <script>
+    // 数据
+    const data = [10, 20, 30, 40, 50];
+    const barWidth = 40;
+    const barSpacing = 10;
+    const maxValue = Math.max(...data);
+    const svg = document.querySelector('svg');
+    const tooltip = document.querySelector('.tooltip');
+
+    data.forEach((value, index) => {
+      const barHeight = (value / maxValue) * 250;
+      const x = index * (barWidth + barSpacing);
+      const y = 300 - barHeight;
+
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', barWidth);
+      rect.setAttribute('height', barHeight);
+      rect.setAttribute('fill', 'steelblue');
+
+      // 添加鼠标悬停效果
+      rect.addEventListener('mouseover', function () {
+        this.setAttribute('fill', 'orange');
+        tooltip.style.display = 'block';
+        tooltip.textContent = `Value: ${value}`;
+        tooltip.style.left = `${event.clientX + 10}px`;
+        tooltip.style.top = `${event.clientY + 10}px`;
+      });
+      rect.addEventListener('mouseout', function () {
+        this.setAttribute('fill', 'steelblue');
+        tooltip.style.display = 'none';
+      });
+
+      svg.appendChild(rect);
+    });
+  </script>
+</body>
+
+</html>

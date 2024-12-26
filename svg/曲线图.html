@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Line Chart with Enhanced Style and Animation</title>
+  <style>
+    svg {
+      border: 1px solid gray;
+    }
+
+  .tooltip {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      pointer-events: none;
+      display: none;
+    }
+
+    /* 定义节点样式 */
+   .data-point {
+      fill: steelblue;
+      stroke: white;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <svg width="500" height="300"></svg>
+  <div class="tooltip"></div>
+  <script>
+    // 生成随机数据
+    const numPoints = 10;
+    const data = [];
+    for (let i = 0; i < numPoints; i++) {
+      data.push(Math.random() * 100);
+    }
+
+    const svg = document.querySelector('svg');
+    const padding = 20;
+    const width = svg.width.baseVal.value - 2 * padding;
+    const height = svg.height.baseVal.value - 2 * padding;
+
+    // 创建路径元素
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('stroke', 'steelblue');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('fill', 'none');
+
+    // 计算坐标点并构建路径，使用三次贝塞尔曲线实现弧度
+    let d = `M${padding},${height - (data[0] * height / Math.max(...data))}`;
+    for (let i = 1; i < data.length; i++) {
+      const prevX = padding + (i - 1) * (width / (data.length - 1));
+      const prevY = height - (data[i - 1] * height / Math.max(...data));
+      const x = padding + i * (width / (data.length - 1));
+      const y = height - (data[i] * height / Math.max(...data));
+      if (i > 1) {
+        d += ` C${prevX + (x - prevX) / 2},${prevY} ${prevX + (x - prevX) / 2},${y} ${x},${y}`;
+      } else {
+        d += ` L${x},${y}`;
+      }
+    }
+    path.setAttribute('d', d);
+
+    // 创建节点
+    for (let i = 0; i < data.length; i++) {
+      const x = padding + i * (width / (data.length - 1));
+      const y = height - (data[i] * height / Math.max(...data));
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', x);
+      circle.setAttribute('cy', y);
+      circle.setAttribute('r', 5);
+      circle.classList.add('data-point');
+      svg.appendChild(circle);
+
+      // 添加鼠标移入事件实现动画
+      circle.addEventListener('mouseover', function () {
+        this.setAttribute('r', 8);
+        this.setAttribute('fill', 'orange');
+      });
+
+      // 添加鼠标移出事件恢复原状
+      circle.addEventListener('mouseout', function () {
+        this.setAttribute('r', 5);
+        this.setAttribute('fill', 'steelblue');
+      });
+    }
+
+    // 添加鼠标悬停事件处理程序
+    path.addEventListener('mousemove', function (event) {
+      const svgPoint = svg.createSVGPoint();
+      svgPoint.x = event.clientX;
+      svgPoint.y = event.clientY;
+      const pointInSVG = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
+
+      for (let i = 0; i < data.length; i++) {
+        const x = padding + i * (width / (data.length - 1));
+        const y = height - (data[i] * height / Math.max(...data));
+        if (Math.abs(pointInSVG.x - x) < 5 && Math.abs(pointInSVG.y - y) < 5) {
+          const tooltip = document.querySelector('.tooltip');
+          tooltip.style.display = 'block';
+          tooltip.textContent = `Value: ${data[i]}`;
+          tooltip.style.left = `${event.clientX + 10}px`;
+          tooltip.style.top = `${event.clientY + 10}px`;
+          break;
+        } else {
+          const tooltip = document.querySelector('.tooltip');
+          tooltip.style.display = 'none';
+        }
+      }
+    });
+
+    svg.appendChild(path);
+  </script>
+</body>
+
+</html>
