@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venn.js Example</title>
+    <!-- 从本地文件系统引入，假设 Venn.js 在当前目录下的 js 文件夹中 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="./js/venn.js"></script>
+    <style>
+        /* 一些基本的样式设置 */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="venn-diagram"></div>
+
+    <script>
+        // 定义集合的元素
+        var sets = [
+            {
+                label: "Set A",
+                elements: [1, 2, 3, 4]
+            },
+            {
+                label: "Set B",
+                elements: [3, 4, 5, 6]
+            },
+            {
+                label: "Set C",
+                elements: [5, 6, 7, 8]
+            }
+        ];
+
+        // 创建 Venn 图
+        var venn = new Venn({
+            selector: "#venn-diagram",
+            sets: sets,
+            setColors: ["#FF0000", "#00FF00", "#0000FF"],
+            strokeWidth: 2,
+            opacity: 0.7
+        });
+
+        // 渲染 Venn 图
+        venn.draw();
+    </script>
+</body>
+
+</html>

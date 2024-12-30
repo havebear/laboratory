@@ -1,0 +1,83 @@
+<!--
+ * @Author: BGG
+ * @Date: 2024-12-30 15:57:40
+ * @LastEditors: BGG
+ * @LastEditTime: 2024-12-30 15:57:46
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+  <title>韦恩图绘制</title>
+</head>
+
+<body>
+  <canvas id="vennCanvas" width="400" height="400"></canvas>
+  <script>
+    // 获取 canvas 元素和绘图上下文
+    var canvas = document.getElementById('vennCanvas');
+    var ctx = canvas.getContext('2d');
+
+    // 定义集合 A 和 B 的半径和圆心坐标
+    var radiusA = 100;
+    var centerX_A = 200;
+    var centerY_A = 200;
+    var radiusB = 80;
+    var centerX_B = 200;
+    var centerY_B = 200;
+
+    // 绘制集合 A 的圆形
+    ctx.beginPath();
+    ctx.arc(centerX_A, centerY_A, radiusA, 0, 2 * Math.PI);
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 绘制集合 B 的圆形
+    ctx.beginPath();
+    ctx.arc(centerX_B, centerY_B, radiusB, 0, 2 * Math.PI);
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 绘制交集部分
+    var intersectionX = (centerX_A + centerX_B) / 2;
+    var intersectionY = (centerY_A + centerY_B) / 2;
+    var intersectionRadius = Math.min(radiusA, radiusB);
+    ctx.beginPath();
+    ctx.arc(intersectionX, intersectionY, intersectionRadius, 0, 2 * Math.PI);
+    ctx.strokeStyle = 'green';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 绘制集合 A 中除去交集的部分
+    ctx.beginPath();
+    ctx.arc(centerX_A, centerY_A, radiusA, 0, 2 * Math.PI);
+    ctx.clip();
+    ctx.beginPath();
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.closePath();
+
+    // 绘制集合 B 中除去交集的部分
+    ctx.beginPath();
+    ctx.arc(centerX_B, centerY_B, radiusB, 0, 2 * Math.PI);
+    ctx.clip();
+    ctx.beginPath();
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.closePath();
+  </script>
+</body>
+
+</html>
